@@ -1,4 +1,4 @@
-GITIGNORE_TEMPLATE="""# Byte-compiled / optimized / DLL files
+# Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
@@ -129,4 +129,3 @@ dmypy.json
 
 _version_save.py
 .idea
-"""

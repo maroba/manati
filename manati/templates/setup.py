@@ -1,4 +1,4 @@
-SETUP_PY_TEMPLATE="""#!/usr/bin/env python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 from os.path import exists
 from setuptools import setup, find_packages
@@ -31,4 +31,3 @@ setup(
                  ],
     platforms=['ALL'],
 )
-"""

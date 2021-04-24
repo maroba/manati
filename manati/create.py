@@ -1,7 +1,6 @@
 import os
 import pathlib
-
-from manati.templates import SETUP_PY_TEMPLATE, SOURCE_TEMPLATE, TEST_TEMPLATE, GITIGNORE_TEMPLATE
+import datetime
 
 
 def create_project(name, no_git, no_install):
@@ -9,21 +8,23 @@ def create_project(name, no_git, no_install):
     if os.path.exists(path):
         raise Exception('ERROR: Path already exists.')
 
+    templates = pathlib.Path(__file__).parent / 'templates'
+
     os.makedirs(path)
     os.makedirs(path / name)
     os.makedirs(path / 'tests')
-    # os.makedirs(path / 'docs') # TODO: Autocreate documentation
 
-    write_file(path / 'setup.py', SETUP_PY_TEMPLATE.replace('PROJECT_NAME', name))
-
-    source = SOURCE_TEMPLATE.replace('PROJECT_NAME', name)
-    write_file(path / name / 'main.py', source)
-    write_file(path / name / '__init__.py', '')
-
-    test = TEST_TEMPLATE.replace('PROJECT_NAME', name).replace('MODULE_NAME', 'main')
-    write_file(path / 'tests' / 'test_main.py', test)
-
-    write_file(path / '.gitignore', GITIGNORE_TEMPLATE)
+    subs = {
+        'PROJECT_NAME': name,
+        'YEAR': datetime.date.today().year,
+        'VERSION': '0.0.1',
+        'MODULE_NAME': 'main'
+    }
+    render(path / 'setup.py', templates / 'setup.py', subs)
+    render(path / name / 'main.py', templates / 'source.py', subs)
+    render(path / 'tests' / 'test_main.py', templates / 'test.py', subs)
+    render(path / name / '__init__.py')
+    render(path / name / '.gitignore', templates / '.gitignore')
 
     if not no_git:
         os.system('cd %s; git init' % name)
@@ -32,6 +33,17 @@ def create_project(name, no_git, no_install):
         os.system('cd %s; pip install -e .' % name)
 
 
-def write_file(path, content):
+def render(path, template=None, subs=None):
+
+    if template:
+        with open(template, 'r') as f:
+            content = f.read()
+    else:
+        content = ''
+
+    if subs:
+        for key, value in subs.items():
+            content = content.replace(key, str(value))
+
     with open(path, 'w') as f:
         f.write(content)
