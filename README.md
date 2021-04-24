@@ -1,5 +1,7 @@
-![abc](docs/images/manati.png) 
+
 # manati
+![abc](docs/images/manati.png) 
+
 [![PyPI version](https://badge.fury.io/py/manati.svg)](https://badge.fury.io/py/manati)
 [![Doc Status](https://readthedocs.org/projects/manati/badge/?version=latest)](https://manati.readthedocs.io/en/latest/index.html)
 
