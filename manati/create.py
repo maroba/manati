@@ -4,7 +4,7 @@ import pathlib
 from manati.templates import SETUP_PY_TEMPLATE, SOURCE_TEMPLATE, TEST_TEMPLATE, GITIGNORE_TEMPLATE
 
 
-def create_project(name):
+def create_project(name, no_git, no_install):
     path = pathlib.Path.cwd() / name
     if os.path.exists(path):
         raise Exception('ERROR: Path already exists.')
@@ -25,8 +25,11 @@ def create_project(name):
 
     write_file(path / '.gitignore', GITIGNORE_TEMPLATE)
 
-    os.system('cd %s; git init' % name)
-    os.system('cd %s; pip install -e .' % name)
+    if not no_git:
+        os.system('cd %s; git init' % name)
+
+    if not no_install:
+        os.system('cd %s; pip install -e .' % name)
 
 
 def write_file(path, content):

@@ -21,12 +21,13 @@ def create(*args, **kwargs):
 
 @create.command('project')
 @click.option('-n', '--name', 'name', required=True, callback=validate_project_name, prompt='Project name')
-#@click.option('--no-git', is_flag=True, default=False)
-#@click.option('--no-docs', is_flag=True, default=False)
-def create_project_command(name):
+@click.option('-G', '--no-git', 'no_git', is_flag=True, default=False)
+@click.option('-I', '--no-install', 'no_install', is_flag=True, default=False)
+#@click.option('-D', '--no-docs', 'no_docs', is_flag=True, default=False)
+def create_project_command(name, no_git, no_install):
     try:
         #click.echo(name)
-        create_project(name)
+        create_project(name, no_git, no_install)
     except Exception as e:
         click.echo(e)
 
