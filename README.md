@@ -1,4 +1,5 @@
 # manati
+[![PyPI version](https://badge.fury.io/py/manati.svg)](https://badge.fury.io/py/manati)
 
 A Python CLI for managing Python projects.
 
