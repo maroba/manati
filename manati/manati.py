@@ -46,6 +46,5 @@ def apropos_tests_command():
 def apropos_install_command():
     help_install()
 
-
 if __name__ == '__main__':
     cli()
