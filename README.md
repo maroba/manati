@@ -34,3 +34,7 @@ Just use `pip`:
 ```
 pip install --upgrade manati
 ```
+
+## Documentation
+
+The full documentation can be found ![here](https://manati.readthedocs.io/en/latest/).
