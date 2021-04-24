@@ -1,7 +1,7 @@
 
 # manati
 
-A Python CLI for managing Python projects.
+A command line interface (CLI) for managing Python projects.
 
 ![https://de.vecteezy.com/gratis-vektor/natur](docs/images/manati.png) 
 
