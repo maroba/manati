@@ -1,7 +1,9 @@
 
 # manati
+
 A Python CLI for managing Python projects.
-![abc](docs/images/manati.png) 
+
+![https://de.vecteezy.com/gratis-vektor/natur](docs/images/manati.png) 
 
 [![PyPI version](https://badge.fury.io/py/manati.svg)](https://badge.fury.io/py/manati)
 [![Doc Status](https://readthedocs.org/projects/manati/badge/?version=latest)](https://manati.readthedocs.io/en/latest/index.html)
