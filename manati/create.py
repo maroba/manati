@@ -24,7 +24,7 @@ def create_project(name, no_git, no_install):
     render(path / name / 'main.py', templates / 'source.py', subs)
     render(path / 'tests' / 'test_main.py', templates / 'test.py', subs)
     render(path / name / '__init__.py')
-    render(path / name / '.gitignore', templates / '.gitignore')
+    render(path / '.gitignore', templates / '.gitignore')
 
     if not no_git:
         os.system('cd %s; git init' % name)
