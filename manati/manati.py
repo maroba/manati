@@ -1,12 +1,18 @@
+import pathlib
+import shutil
+import os
+
 import click
+
 from manati.create import create_project
-from manati.add import add_package
+from manati.add import add_package, add_license
 from manati.apropos import help_tests, help_install
 from manati.validators import validate_project_name
 
 
 @click.group('manati')
 def cli(*args, **kwargs):
+    """Manati - a command line interface (CLI) for managing Python projects."""
     pass
 
 
@@ -19,14 +25,17 @@ def cli(*args, **kwargs):
               help='Do not pip-install in editable mode')
 @click.option('-a', '--author', 'author', default='AUTHOR', prompt='Author')
 @click.option('-d', '--description', 'description', default='', prompt='(Short) description')
-def create_project_command(name, no_git, no_install, author, description):
+@click.option('-l', '--license', 'license', type=click.Choice([
+'MIT', 'GPLv3', 'Apache', 'None'
+], case_sensitive=False), prompt='License', default='None')
+def create_project_command(name, no_git, no_install, author, description, license):
     """Create a standard Python project structure.
 
     By default, the project is also pip-installed for development
     in editable mode, and a local git repository is also created.
     """
     try:
-        create_project(name, no_git, no_install, author, description)
+        create_project(name, no_git, no_install, author, description, license)
     except Exception as e:
         click.echo(e)
 
@@ -51,8 +60,45 @@ def add_package_command(package_name):
     click.echo('Done.')
 
 
+@add.command('license')
+@click.option('-n', '--name', 'name', type=click.Choice(['MIT', 'GPLv3', 'Apache', 'None'], case_sensitive=False),
+              required=True, prompt='License')
+def add_license_command(name):
+    """Add a license to the current project."""
+    add_license(pathlib.Path.cwd(), name)
+
+
+@add.command('gitignore')
+def add_gitignore_command():
+    """Add a default .gitignore file to the current directory."""
+    cwd = pathlib.Path.cwd()
+    target = cwd / '.gitignore'
+    source = pathlib.Path(__file__).parent / 'templates' / '.gitignore'
+
+    if not os.path.exists(target):
+        shutil.copyfile(source, target)
+    else:
+        if click.confirm('.gitignore file already exists in current directory. Overwrite?'):
+            shutil.copyfile(source, target)
+
+
+@add.command('setup.py')
+def add_setup_py_command():
+    """Add a setup.py file to the current directory"""
+    cwd = pathlib.Path.cwd()
+    target = cwd / 'setup.py'
+    source = pathlib.Path(__file__).parent / 'templates' / 'setup.py'
+
+    if not os.path.exists(target):
+        shutil.copyfile(source, target)
+    else:
+        if click.confirm('setup.py file already exists in current directory. Overwrite?'):
+            shutil.copyfile(source, target)
+
+
 @cli.group('apropos')
 def apropos(*args, **kwargs):
+    """Print reminders on various topics."""
     pass
 
 
