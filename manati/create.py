@@ -6,7 +6,7 @@ import subprocess
 import click
 
 
-def create_project(name, no_git, no_install, author):
+def create_project(name, no_git, no_install, author, description):
     path = pathlib.Path.cwd() / name
     if os.path.exists(path):
         raise Exception('ERROR: Path already exists.')
@@ -22,8 +22,11 @@ def create_project(name, no_git, no_install, author):
         'YEAR': datetime.date.today().year,
         'VERSION': '0.0.1',
         'MODULE_NAME': 'main',
-        'AUTHOR': author
+        'AUTHOR': author,
+        'DESCRIPTION': description
     }
+    render(path / 'README.md', templates / 'README.md', subs)
+
     render(path / 'setup.py', templates / 'setup.py', subs)
     render(path / name / 'main.py', templates / 'source.py', subs)
     render(path / name / '__init__.py')
