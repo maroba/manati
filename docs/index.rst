@@ -10,7 +10,7 @@ Welcome to manati's documentation!
 Python projects.
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :caption: Contents:
 
    gettingstarted

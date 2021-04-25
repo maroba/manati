@@ -16,20 +16,6 @@ Use `pip` for installation of `manati`:
 Usage
 *****
 
-Creating a project
-------------------
-
-In order to create a Python project ``myproject, go to the directory where
-you want the project to be located. Then submit
-
-.. code-block::
-
-    manati create project myproject
-
-This will create a default directory structure for Python projects,
-source and test templates, as well as a ready-to-go *setup.py*
-and *.gitignore* file, in case you want to work with a *git* repository.
-
 Getting Help
 ------------
 
@@ -41,6 +27,37 @@ adding a *--help* option to the command, for instance:
     manati --help
 
 shows the usage and all available subcommand.
+
+
+Creating a project
+------------------
+
+In order to create a Python project `myproject`, go to the directory where
+you want the project to be located. Then submit
+
+.. code-block::
+
+    manati create
+
+This will create a default directory structure for Python projects,
+source and test templates, as well as a ready-to-go *setup.py*
+and *.gitignore* file, documentation based on Sphinx, a license file,
+README, etc.
+
+Adding stuff to an existing project
+-----------------------------------
+
+Sometimes you have an existing project, but initially you did not choose a license,
+or your `.gitignore` is missing. You can add those special files with the `manati add` command.
+
+You can add
+
+- a `setup.py` file
+- a `.gitignore` file
+- choose a license
+- a package
+
+Call `manati add --help` for more information.
 
 
 Apropos
