@@ -32,6 +32,7 @@ myproject
 ├── myproject
 │   ├── __init__.py
 │   └── main.py
+├── README.md
 ├── setup.py
 ├── .gitignore
 └── tests
