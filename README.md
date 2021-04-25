@@ -22,7 +22,7 @@ manati create project -n myproject
 creates a complete Python project structure inside the current working directory:
 
 ```
-.
+myproject
 ├── docs
 │   ├── Makefile
 │   ├── conf.py
