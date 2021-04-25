@@ -20,14 +20,22 @@ def create(*args, **kwargs):
 
 
 @create.command('project')
-@click.option('-n', '--name', 'name', required=True, callback=validate_project_name, prompt='Project name')
-@click.option('-G', '--no-git', 'no_git', is_flag=True, default=False)
-@click.option('-I', '--no-install', 'no_install', is_flag=True, default=False)
-#@click.option('-D', '--no-docs', 'no_docs', is_flag=True, default=False)
-def create_project_command(name, no_git, no_install):
+@click.option('-n', '--name', 'name', required=True, callback=validate_project_name,
+              prompt='Project name', help='Name of the project, same as the main package.')
+@click.option('-G', '--no-git', 'no_git', is_flag=True, default=False,
+              help='Do not create git repository')
+@click.option('-I', '--no-install', 'no_install', is_flag=True, default=False,
+              help='Do not pip-install in editable mode')
+@click.option('-a', '--author', 'author', default='AUTHOR', prompt='Author')
+def create_project_command(name, no_git, no_install, author):
+    """Create a standard Python project structure.
+
+    By default, the project is also pip-installed for development
+    in editable mode, and a local git repository is also created.
+    """
     try:
         #click.echo(name)
-        create_project(name, no_git, no_install)
+        create_project(name, no_git, no_install, author)
     except Exception as e:
         click.echo(e)
 
