@@ -1,9 +1,17 @@
 import pathlib
 import os
 
+from manati.utils import task
 
+@task('Create package...', ' OK')
 def add_package(name):
+    """ Add a package structure in the current working directory
 
+    Parameters
+    ----------
+    name: str
+        Name of the package including parent packages.
+    """
     components = name.split('.')
 
     path = pathlib.Path('.')

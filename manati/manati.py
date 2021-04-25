@@ -7,6 +7,7 @@ from manati.validators import validate_project_name
 
 @click.group('manati')
 def cli(*args, **kwargs):
+    """Manati - a command line interface (CLI) for managing Python projects."""
     pass
 
 
@@ -53,6 +54,7 @@ def add_package_command(package_name):
 
 @cli.group('apropos')
 def apropos(*args, **kwargs):
+    """Print reminders on various topics."""
     pass
 
 
