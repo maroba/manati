@@ -17,7 +17,7 @@ A command line interface (CLI) for managing Python projects.
 ### Creating a project
 
 ```
-manati create project -n myproject
+manati create -n myproject
 ```
 
 creates a complete Python project structure inside the current working directory:
