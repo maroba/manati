@@ -1,11 +1,11 @@
 import pathlib
 import os
 import shutil
-import re
 
 import click
 
-from manati.utils import task
+from manati.utils import task, substitute
+
 
 @task('Create package...', ' OK')
 def add_package(name):
@@ -50,11 +50,3 @@ def add_license(path, license):
     substitute(setup_py, "license='None'", "license='%s'" % license)
 
 
-def substitute(path, pattern, replacement):
-    with open(path, 'r') as f:
-        content = f.read()
-
-    content = re.sub(pattern, replacement, content)
-
-    with open(path, 'w') as f:
-        f.write(content)

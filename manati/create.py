@@ -1,11 +1,10 @@
 import os
 import pathlib
 import datetime
-import subprocess
 
 import click
 
-from manati.utils import task
+from manati.utils import task, replace, shell, render
 from manati.add import add_license
 
 
@@ -103,7 +102,7 @@ def create_docs(path, name, author):
     os.makedirs(path / 'docs')
     render(path / 'docs' / 'requirements.txt', 'sphinx\nsphinx_rtd_theme\n')
 
-    shell('pip install -r requirements.txt', root=name+'/docs')
+    shell('pip install -r requirements.txt', root=name + '/docs')
 
     cmd = 'sphinx-quickstart -p %s -a "%s" -v 0.0.1 --no-sep -l en -r 0.0.1 docs' % (name,
                                                                     author,
@@ -116,62 +115,3 @@ def create_docs(path, name, author):
 @task('Build documentation...', ' OK')
 def build_documentation(name):
     shell('make html', root=name + '/docs')
-
-
-def render(path, template=None, subs=None):
-    """ Write a file based on a file or string template.
-
-    Parameters
-    ----------
-    path: str or Pathlib path
-        The path of the file to write.
-
-    template: Path or str
-        The file path or the string used as template.
-
-    subs: dict
-        The substitutions to perform on the template.
-    """
-    if template:
-        if os.path.exists(template):
-            with open(template, 'r') as f:
-                content = f.read()
-        else:
-            content = template
-    else:
-        content = ''
-
-    if subs:
-        for key, value in subs.items():
-            content = content.replace(key, str(value))
-
-    with open(path, 'w') as f:
-        f.write(content)
-
-
-def replace(path, subs):
-    with open(path, 'r') as f:
-        content = f.read()
-
-    if content:
-        for key, value in subs.items():
-            content = content.replace(key, value)
-        with open(path, 'w') as f:
-            f.write(content)
-
-
-def shell(cmd, root=None):
-    """ Silently perform a shell command.
-
-    Parameters
-    ----------
-    cmd: str
-        The command to perform.
-
-    root: path or str
-        The directory where to perform the command. Default: current directory.
-    """
-    if root:
-        cmd = 'cd ' + root + '; ' + cmd
-    subprocess.run(cmd, shell=True, stdout=subprocess.DEVNULL)
-
