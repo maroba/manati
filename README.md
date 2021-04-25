@@ -44,10 +44,25 @@ suitable `.gitignore` file.
 
 After creation, the project is already installed in development (editable) mode, so you can start coding right away.
 
+#### Running tests
+
 A smoke test as template for further tests is also created and you can run the tests as usual like so:
 
 ```
 python -m unittest discover tests
+```
+
+#### Building the project documentation
+
+After creation of the project, a documentation folder using Sphinx has been prepared, and the first version has
+already been built. You can look at the documentation using your favorite brower by opening `./docs/_build/html/index.html`.
+
+If you want to update the documentation, rebuild by
+
+```
+cd docs
+make clean
+make html
 ```
 
 
