@@ -70,12 +70,29 @@ def add_license_command(name):
 
 @add.command('gitignore')
 def add_gitignore_command():
+    """Add a default .gitignore file to the current directory."""
     cwd = pathlib.Path.cwd()
     target = cwd / '.gitignore'
+    source = pathlib.Path(__file__).parent / 'templates' / '.gitignore'
 
-    if os.path.exists(target):
+    if not os.path.exists(target):
+        shutil.copyfile(source, target)
+    else:
         if click.confirm('.gitignore file already exists in current directory. Overwrite?'):
-            source = pathlib.Path(__file__).parent / 'templates' / '.gitignore'
+            shutil.copyfile(source, target)
+
+
+@add.command('setup.py')
+def add_setup_py_command():
+    """Add a setup.py file to the current directory"""
+    cwd = pathlib.Path.cwd()
+    target = cwd / 'setup.py'
+    source = pathlib.Path(__file__).parent / 'templates' / 'setup.py'
+
+    if not os.path.exists(target):
+        shutil.copyfile(source, target)
+    else:
+        if click.confirm('setup.py file already exists in current directory. Overwrite?'):
             shutil.copyfile(source, target)
 
 
