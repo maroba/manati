@@ -79,6 +79,10 @@ pip install --upgrade manati
 The full documentation can be found [here](https://manati.readthedocs.io/en/latest/).
 
 
+## Requirements
+
+All Python requirements are installed automatically. However, **you need to have `git` installed**.
+
 #### Credits
 
 Images by [Natur Vektoren von Vecteezy](https://de.vecteezy.com/gratis-vektor/natur).
