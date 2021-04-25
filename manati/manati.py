@@ -1,6 +1,9 @@
+import pathlib
+
 import click
+
 from manati.create import create_project
-from manati.add import add_package
+from manati.add import add_package, add_license
 from manati.apropos import help_tests, help_install
 from manati.validators import validate_project_name
 
@@ -53,6 +56,14 @@ def add_package_command(package_name):
     click.echo('Create package...', nl=False)
     add_package(package_name)
     click.echo('Done.')
+
+
+@add.command('license')
+@click.option('-n', '--name', 'name', type=click.Choice(['MIT', 'GPLv3', 'Apache', 'None'], case_sensitive=False),
+              required=True, prompt='License')
+def add_license_command(name):
+    """Add a license to the current project."""
+    add_license(pathlib.Path.cwd(), name)
 
 
 @cli.group('apropos')
