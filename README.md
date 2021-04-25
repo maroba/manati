@@ -16,17 +16,24 @@ A command line interface (CLI) for managing Python projects.
 ### Creating a project
 
 ```
-manati create project myproject
+manati create project -n myproject
 ```
 
 creates a complete Python project structure inside the current working directory:
 
 ```
-myproject/
+.
+├── docs
+│   ├── Makefile
+│   ├── conf.py
+│   ├── index.rst
+│   ├── make.bat
+│   └── requirements.txt
 ├── myproject
-│   └── __init__.py
+│   ├── __init__.py
 │   └── main.py
 ├── setup.py
+├── .gitignore
 └── tests
     └── test_main.py
 ```
@@ -34,6 +41,15 @@ myproject/
 including sample source,
 tests, documentation, `setup.py`, local `git` repository and a
 suitable `.gitignore` file.
+
+After creation, the project is already installed in development (editable) mode, so you can start coding right away.
+
+A smoke test as template for further tests is also created and you can run the tests as usual like so:
+
+```
+python -m unittest discover tests
+```
+
 
 ## Installation
 
