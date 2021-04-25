@@ -9,7 +9,10 @@ A command line interface (CLI) for managing Python projects.
 ![Build status](https://img.shields.io/github/workflow/status/maroba/manati/Checks)
 [![Doc Status](https://readthedocs.org/projects/manati/badge/?version=latest)](https://manati.readthedocs.io/en/latest/index.html)
 
+Create new Python projects with ready-to-go recommended project structure. 
 
+Add important files to existing projects
+like `setup.py`, `.gitignore`, Sphinx documentation, choose a license and more.
 
 
 ## Usage
