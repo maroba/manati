@@ -56,6 +56,7 @@ You can add
 - a `.gitignore` file
 - choose a license
 - a package
+- a `docs` folder with Sphinx documentation
 
 Call `manati add --help` for more information.
 

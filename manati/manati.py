@@ -4,7 +4,7 @@ import os
 
 import click
 
-from manati.create import create_project
+from manati.create import create_project, create_docs
 from manati.add import add_package, add_license
 from manati.apropos import help_tests, help_install
 from manati.validators import validate_project_name
@@ -44,6 +44,13 @@ def create_project_command(name, no_git, no_install, author, description, licens
 def add(*args, **kwargs):
     """Adds something to the current project."""
     pass
+
+
+@add.command('docs')
+def add_docs_command():
+    """Add a docs folder with Sphinx documentation to the current directory."""
+    cwd = pathlib.Path.cwd()
+    create_docs(cwd, 'PROJECT_NAME', 'AUTHOR')
 
 
 @add.command('package')

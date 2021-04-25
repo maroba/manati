@@ -102,12 +102,12 @@ def create_docs(path, name, author):
     os.makedirs(path / 'docs')
     render(path / 'docs' / 'requirements.txt', 'sphinx\nsphinx_rtd_theme\n')
 
-    shell('pip install -r requirements.txt', root=name + '/docs')
+    shell('pip install -r requirements.txt', root=str(path) + '/docs')
 
     cmd = 'sphinx-quickstart -p %s -a "%s" -v 0.0.1 --no-sep -l en -r 0.0.1 docs' % (name,
                                                                     author,
                                                                     )
-    shell(cmd, name)
+    shell(cmd, str(path))
 
     replace(path / 'docs' / 'conf.py', {'alabaster': 'sphinx_rtd_theme'})
 
