@@ -33,6 +33,7 @@ myproject
 ├── myproject
 │   ├── __init__.py
 │   └── main.py
+├── LICENSE
 ├── README.md
 ├── setup.py
 ├── .gitignore
@@ -67,6 +68,19 @@ make clean
 make html
 ```
 
+### Adding stuff to an existing project
+
+Sometimes you have an existing project, but initially you did not choose a license,
+or your `.gitignore` is missing. You can add those special files with the `manati add` command.
+
+You can add
+
+- a `setup.py` file
+- a `.gitignore` file
+- choose a license
+- a package
+
+Call `manati add --help` for more information.
 
 ## Installation
 
