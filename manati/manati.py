@@ -1,4 +1,6 @@
 import pathlib
+import shutil
+import os
 
 import click
 
@@ -64,6 +66,17 @@ def add_package_command(package_name):
 def add_license_command(name):
     """Add a license to the current project."""
     add_license(pathlib.Path.cwd(), name)
+
+
+@add.command('gitignore')
+def add_gitignore_command():
+    cwd = pathlib.Path.cwd()
+    target = cwd / '.gitignore'
+
+    if os.path.exists(target):
+        if click.confirm('.gitignore file already exists in current directory. Overwrite?'):
+            source = pathlib.Path(__file__).parent / 'templates' / '.gitignore'
+            shutil.copyfile(source, target)
 
 
 @cli.group('apropos')
