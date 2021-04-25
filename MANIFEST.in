@@ -1,0 +1,2 @@
+include manati/templates/*
+include manati/templates/licenses/*
