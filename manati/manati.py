@@ -20,14 +20,17 @@ def cli(*args, **kwargs):
               help='Do not pip-install in editable mode')
 @click.option('-a', '--author', 'author', default='AUTHOR', prompt='Author')
 @click.option('-d', '--description', 'description', default='', prompt='(Short) description')
-def create_project_command(name, no_git, no_install, author, description):
+@click.option('-l', '--license', 'license', type=click.Choice([
+'MIT', 'GPLv3', 'Apache', 'None'
+], case_sensitive=False), prompt='License', default='None')
+def create_project_command(name, no_git, no_install, author, description, license):
     """Create a standard Python project structure.
 
     By default, the project is also pip-installed for development
     in editable mode, and a local git repository is also created.
     """
     try:
-        create_project(name, no_git, no_install, author, description)
+        create_project(name, no_git, no_install, author, description, license)
     except Exception as e:
         click.echo(e)
 

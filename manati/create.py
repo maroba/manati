@@ -6,9 +6,10 @@ import subprocess
 import click
 
 from manati.utils import task
+from manati.add import add_license
 
 
-def create_project(name, no_git, no_install, author, description):
+def create_project(name, no_git, no_install, author, description, license):
     """ Create a Python project structure in the current working directory.
 
     Parameters
@@ -44,6 +45,9 @@ def create_project(name, no_git, no_install, author, description):
     }
 
     create_project_structure(name, path, subs, templates)
+
+    if license != 'None':
+        add_license(path, license)
 
     create_docs(path, name, author)
     build_documentation(name)
@@ -145,14 +149,14 @@ def render(path, template=None, subs=None):
         f.write(content)
 
 
-def replace(file, subs):
-    with open(file, 'r') as f:
+def replace(path, subs):
+    with open(path, 'r') as f:
         content = f.read()
 
     if content:
         for key, value in subs.items():
             content = content.replace(key, value)
-        with open(file, 'w') as f:
+        with open(path, 'w') as f:
             f.write(content)
 
 
@@ -171,6 +175,3 @@ def shell(cmd, root=None):
         cmd = 'cd ' + root + '; ' + cmd
     subprocess.run(cmd, shell=True, stdout=subprocess.DEVNULL)
 
-
-if __name__ == '__main__':
-    create_project('tee', False, False)

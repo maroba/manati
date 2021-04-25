@@ -20,7 +20,7 @@ setup(
     packages=find_packages(),
     package_dir={name: name},
     include_package_data=True,    
-    license="GPL v3",
+    license='None',
     description=description,
     long_description=open('README.md').read() if exists('README.md') else '',
     install_requires=['sphinx',
