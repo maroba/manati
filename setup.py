@@ -9,7 +9,7 @@ description = 'A Python CLI for managing Python projects.'
 name = 'manati'
 year = '2021'
 url = 'https://github.com/maroba/manati'
-version = '0.0.2'
+version = '0.0.3.dev'
 
 setup(
     name=name,
@@ -28,7 +28,7 @@ setup(
     description=description,
     long_description=open('README.md').read() if exists('README.md') else '',
     long_description_content_type="text/markdown",
-    install_requires=['click',
+    install_requires=['Click',
                       'sphinx'
                       ],
     # not to be confused with definitions in pyproject.toml [build-system]
