@@ -6,7 +6,6 @@ import click
 
 from manati.create import create_project, create_docs
 from manati.add import add_package, add_license
-from manati.apropos import help_tests, help_install
 from manati.validators import validate_project_name
 
 
@@ -109,16 +108,35 @@ def apropos(*args, **kwargs):
     pass
 
 
+
+
 @apropos.command('tests')
 def apropos_tests_command():
-    """Help on how to run tests."""
-    help_tests()
+    """
+How to run tests
+****************
+
+   python -m unittest discover tests
+"""
+    click.echo(apropos_tests_command.__doc__)
 
 
 @apropos.command('install')
 def apropos_install_command():
-    """Help on how to install in development mode."""
-    help_install()
+    """How to install project for development
+**************************************
+
+In order to install your own project for development, install it in
+development mode (a.k.a editable mode). From the project root directory,
+submit:
+
+    pip install -e .
+
+or
+
+    python setup.py develop
+"""
+    click.echo(apropos_install_command.__doc__)
 
 
 if __name__ == '__main__':

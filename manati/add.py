@@ -31,6 +31,12 @@ def add_package(name):
 
 def add_license(path, license):
 
+    if isinstance(path, str):
+        if path == '.' or path == './':
+            path = pathlib.Path.cwd()
+        else:
+            path = pathlib.Path(path)
+
     if os.path.exists(path / 'LICENSE'):
         raise click.BadParameter('LICENSE file already existing.')
 
