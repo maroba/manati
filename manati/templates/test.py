@@ -1,7 +1,7 @@
 
 import unittest
 
-from PROJECT_NAME.MODULE_NAME import hello
+from PROJECT_NAME.main import hello
 
 class TestHelloWorld(unittest.TestCase):
 
