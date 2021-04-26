@@ -30,7 +30,7 @@ jobs:
         pip freeze
     - name: Test with pytest
       run: |
-        coverage run --source=manati pytest tests
+        coverage run --source=manati -m pytest tests
     - name: Submit code coverage
       run: |
         coverage report -m
