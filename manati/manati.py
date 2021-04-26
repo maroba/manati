@@ -11,7 +11,7 @@ from manati.validators import validate_project_name
 
 
 @click.group('manati')
-def cli(*args, **kwargs):
+def cli():
     """Manati - a command line interface (CLI) for managing Python projects."""
     pass
 
@@ -26,7 +26,7 @@ def cli(*args, **kwargs):
 @click.option('-a', '--author', 'author', default='AUTHOR', prompt='Author')
 @click.option('-d', '--description', 'description', default='', prompt='(Short) description')
 @click.option('-l', '--license', 'license', type=click.Choice([
-'MIT', 'GPLv3', 'Apache', 'None'
+    'MIT', 'GPLv3', 'Apache', 'None'
 ], case_sensitive=False), prompt='License', default='None')
 def create_project_command(name, no_git, no_install, author, description, license):
     """Create a standard Python project structure.
@@ -84,6 +84,7 @@ def add_gitignore_command():
 
     confirm_copy(source, target)
 
+
 @add.command('setup.py')
 def add_setup_py_command():
     """Add a setup.py file to the current directory"""
@@ -106,8 +107,6 @@ def confirm_copy(source, target):
 def apropos(*args, **kwargs):
     """Print reminders on various topics."""
     pass
-
-
 
 
 @apropos.command('tests')
