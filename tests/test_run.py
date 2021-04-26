@@ -21,6 +21,7 @@ class TestRun(unittest.TestCase):
             result = runner.invoke(cli, ['run', 'tests', '-r', 'unittest', '-d', 'tests'])
             assert result.exit_code == 0
 
+
     def test_run_coverage(self):
         runner = CliRunner()
         with runner.isolated_filesystem():
