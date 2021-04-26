@@ -7,7 +7,7 @@ from manati.add import add_package, add_license
 from manati.utils import confirm_copy
 from manati.validators import validate_project_name
 from manati.deploy import deploy_pypi
-from manati.run import run_tests, run_coverage
+from manati.run import run_tests, run_coverage, run_docs
 
 
 @click.group('manati')
@@ -149,6 +149,12 @@ def run_tests_command(directory, runner):
 def run_coverage_command(source, test_dir, runner):
     """Run test coverage."""
     run_coverage(source, test_dir, runner)
+
+
+@run.command('docs')
+def run_docs_command():
+    """Build the documentation and show it in browser."""
+    run_docs()
 
 
 if __name__ == '__main__':

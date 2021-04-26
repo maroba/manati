@@ -1,4 +1,5 @@
 from os.path import exists
+from pathlib import Path
 
 import click
 
@@ -37,3 +38,13 @@ def run_coverage(source, test_dir, runner):
         raise click.BadParameter('No such test runner: %s' % runner)
 
     shell('coverage report -m', silent=False)
+
+
+def run_docs():
+
+    cwd = Path.cwd()
+    if not exists(cwd / 'docs'):
+        raise click.BadParameter('Cannot find docs folder.')
+
+    shell('make clean; make html', root=str(cwd / 'docs'), silent=False)
+    click.launch('docs/_build/html/index.html')
