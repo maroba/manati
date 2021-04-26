@@ -3,13 +3,13 @@
 from os.path import exists
 from setuptools import setup, find_packages
 
-author = 'maroba'
+author = 'Matthias Baer'
 email = 'matthias.r.baer@googlemail.com'
-description = 'A Python CLI for managing Python projects.'
+description = 'A CLI for managing Python projects.'
 name = 'manati'
 year = '2021'
 url = 'https://github.com/maroba/manati'
-version = '0.2.0.dev'
+version = '0.2.0'
 
 setup(
     name=name,

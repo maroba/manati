@@ -1,13 +1,13 @@
 import pathlib
-import shutil
-import os
-from os.path import basename
 
 import click
 
 from manati.create import create_project, create_docs
 from manati.add import add_package, add_license
+from manati.utils import confirm_copy
 from manati.validators import validate_project_name
+from manati.deploy import deploy_pypi
+from manati.run import run_tests, run_coverage
 
 
 @click.group('manati')
@@ -95,47 +95,45 @@ def add_setup_py_command():
     confirm_copy(source, target)
 
 
-def confirm_copy(source, target):
-    if not os.path.exists(target):
-        shutil.copyfile(source, target)
-    else:
-        if click.confirm('%s file already exists in current directory. Overwrite?' % basename(target)):
-            shutil.copyfile(source, target)
+@cli.command('deploy')
+@click.option('-i', '--index', 'package_index', type=click.Choice(['pypi'], case_sensitive=False),
+            prompt='Package index', default='pypi')
+def deploy(package_index):
+    """Deploy project to package repository.
+
+Remember to adjust the version, email and url in setup.py before submitting.
+    """
+    if package_index != 'pypi':
+        raise click.BadParameter('No such index: %s' % package_index)
+
+    deploy_pypi()
 
 
-@cli.group('apropos')
-def apropos(*args, **kwargs):
-    """Print reminders on various topics."""
+@cli.group('run')
+def run(*args, **kwargs):
     pass
 
 
-@apropos.command('tests')
-def apropos_tests_command():
-    """
-How to run tests
-****************
+@run.command('tests')
+@click.option('-d', 'directory', required=True, prompt='Test folder', help='Directory with tests.')
+@click.option('-r', '--runner', 'runner', required=True, default='unittest',
+              type=click.Choice(['unittest', 'pytest'], case_sensitive=False),
+              help='Test runner', prompt='Test runner')
+def run_tests_command(directory, runner):
+    """Run tests in a test folder."""
+    run_tests(directory, runner)
 
-   python -m unittest discover tests
-"""
-    click.echo(apropos_tests_command.__doc__)
 
-
-@apropos.command('install')
-def apropos_install_command():
-    """How to install project for development
-**************************************
-
-In order to install your own project for development, install it in
-development mode (a.k.a editable mode). From the project root directory,
-submit:
-
-    pip install -e .
-
-or
-
-    python setup.py develop
-"""
-    click.echo(apropos_install_command.__doc__)
+@run.command('coverage')
+@click.option('-s', '--source', 'source', required=True, help='Package on which to run coverage.',
+              prompt='Source package')
+@click.option('-t', '--tests', 'test_dir', required=True, prompt='Test folder', help='Directory with tests.')
+@click.option('-r', '--runner', 'runner', required=True, default='unittest',
+              type=click.Choice(['unittest', 'pytest'], case_sensitive=False),
+              help='Test runner', prompt='Test runner')
+def run_coverage_command(source, test_dir, runner):
+    """Run test coverage."""
+    run_coverage(source, test_dir, runner)
 
 
 if __name__ == '__main__':

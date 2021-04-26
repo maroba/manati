@@ -61,7 +61,10 @@ def create_project(name, no_git, no_install, author, description, license):
 
 
 @task('Create project structure...', ' OK')
-def create_project_structure(name, path, subs, templates):
+def create_project_structure(name, path, subs, templates=None):
+    if templates is None:
+        templates = pathlib.Path(__file__).parent / 'templates'
+
     os.makedirs(path)
     os.makedirs(path / name)
     render(path / 'README.md', templates / 'README.md', subs)
