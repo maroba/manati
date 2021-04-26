@@ -17,6 +17,8 @@ like `setup.py`, `.gitignore`, Sphinx documentation, choose a license and more.
 
 Run test suites, analyze test coverage and deploy to PyPi.
 
+Even *manati* is managed using *manati*... so meta.
+
 ## Installation
 
 ```
