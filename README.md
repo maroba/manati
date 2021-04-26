@@ -15,6 +15,11 @@ Create new Python projects with ready-to-go recommended project structure.
 Add important files to existing projects
 like `setup.py`, `.gitignore`, Sphinx documentation, choose a license and more.
 
+## Installation
+
+```
+pip install --upgrade manati
+```
 
 ## Usage
 
@@ -67,18 +72,9 @@ You can add
 
 Call `manati add --help` for more information.
 
-## Installation
-
-Just use `pip`:
-
-```
-pip install --upgrade manati
-```
-
 ## Documentation
 
 The full documentation can be found [here](https://manati.readthedocs.io/en/latest/).
-
 
 ## Requirements
 
