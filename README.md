@@ -114,7 +114,8 @@ The full documentation can be found [here](https://manati.readthedocs.io/en/late
 
 ## Requirements
 
-All Python requirements are installed automatically. However, **you need to have `git` installed**.
+*manati* requires Python 3.
+All Python dependencies are installed automatically. However, **you need to have `git` installed**.
 
 #### Credits
 
