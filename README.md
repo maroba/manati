@@ -69,8 +69,6 @@ Call `manati add --help` for more information.
 
 ## Installation
 
-Just use `pip`:
-
 ```
 pip install --upgrade manati
 ```
@@ -79,15 +77,9 @@ pip install --upgrade manati
 
 The full documentation can be found [here](https://manati.readthedocs.io/en/latest/).
 
-
 ## Requirements
 
 All Python requirements are installed automatically. However, **you need to have `git` installed**.
-
-## Contributing
-
-Suggestions for improvement or correction are always welcome, just submit an issue. If you want to contribute writing code or
-documentation, please work on the `dev` branch and send a pull request.
 
 #### Credits
 
