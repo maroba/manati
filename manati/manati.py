@@ -12,8 +12,22 @@ from manati.run import run_tests, run_coverage
 
 @click.group('manati')
 def cli():
-    """Manati - a command line interface (CLI) for managing Python projects."""
+    """\b
+███╗   ███╗ █████╗ ███╗   ██╗ █████╗ ████████╗██╗
+████╗ ████║██╔══██╗████╗  ██║██╔══██╗╚══██╔══╝██║
+██╔████╔██║███████║██╔██╗ ██║███████║   ██║   ██║
+██║╚██╔╝██║██╔══██║██║╚██╗██║██╔══██║   ██║   ██║
+██║ ╚═╝ ██║██║  ██║██║ ╚████║██║  ██║   ██║   ██║
+╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝   ╚═╝   ╚═╝
+
+    A command line interface (CLI) for managing Python projects.
+
+"""
     pass
+
+"""
+                                                                                                                          
+"""
 
 
 @cli.command('create')

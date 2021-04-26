@@ -13,9 +13,14 @@ def task(msg_before, msg_after=None):
         @functools.wraps(func)
         def inner_wrapper(*args, **kwargs):
             click.echo(msg_before, nl=not msg_after)
-            func(*args, **kwargs)
-            if msg_after:
-               click.echo(msg_after)
+            try:
+                result = func(*args, **kwargs)
+                if msg_after:
+                   click.secho(msg_after, fg='green')
+                return result
+            except Exception as e:
+                click.secho('ERROR', fg='red')
+                raise e
         return inner_wrapper
     return outer_wrapper
 
