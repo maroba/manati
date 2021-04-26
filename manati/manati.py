@@ -7,6 +7,7 @@ from manati.add import add_package, add_license
 from manati.utils import confirm_copy
 from manati.validators import validate_project_name
 from manati.deploy import deploy_pypi
+from manati.run import run_tests, run_coverage
 
 
 @click.group('manati')
@@ -106,6 +107,27 @@ Remember to adjust the version, email and url in setup.py before submitting.
         raise click.BadParameter('No such index: %s' % package_index)
 
     deploy_pypi()
+
+
+@cli.group('run')
+def run(*args, **kwargs):
+    pass
+
+
+@run.command('tests')
+@click.option('-d', 'directory', required=True, prompt='Test folder', help='Directory with tests.')
+def run_tests_command(directory):
+    """Run tests in a test folder."""
+    run_tests(directory)
+
+
+@run.command('coverage')
+@click.option('-s', '--source', 'source', required=True, help='Package on which to run coverage.',
+              prompt='Source package')
+@click.option('-t', '--tests', 'test_dir', required=True, prompt='Test folder', help='Directory with tests.')
+def run_coverage_command(source, test_dir):
+    """Run test coverage."""
+    run_coverage(source, test_dir)
 
 
 if __name__ == '__main__':
