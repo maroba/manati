@@ -6,7 +6,9 @@
 Welcome to manati's documentation!
 ==================================
 
-`manati` is a Python command line interface (CLI) for managing
+.. image:: images/manati.png
+
+`manati` is a command line interface (CLI) for managing
 Python projects.
 
 .. toctree::
