@@ -8,6 +8,7 @@ from manati.utils import shell
 
 
 def deploy_pypi():
+    """Deploy project in current directory to PyPi."""
 
     cwd = Path.cwd()
 
@@ -30,5 +31,6 @@ def deploy_pypi():
 
 
 def do_twine():
+    """Login and upload to PyPi."""
     click.echo('Log in to PyPi...')
     shell('twine upload *', 'dist', silent=False)

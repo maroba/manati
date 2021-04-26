@@ -30,7 +30,16 @@ def add_package(name):
 
 
 def add_license(path, license):
+    """Adds a LICENSE file to specified directory.
 
+    Parameters
+    ----------
+    path: str or pathlib.Path
+        The directory where to put the LICENSE file.
+
+    license: str [MIT|GPLv3|Apache]
+        The type of license.
+    """
     if isinstance(path, str):
         if path == '.' or path == './':
             path = pathlib.Path.cwd()

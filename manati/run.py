@@ -43,6 +43,7 @@ def run_coverage(source, test_dir, runner):
 
 
 def run_docs():
+    """Build the documentation and show it in the browser."""
 
     cwd = Path.cwd()
     if not exists(cwd / 'docs'):
@@ -53,5 +54,13 @@ def run_docs():
 
 
 def run_flake8(dirs):
+    """Run flake8 style enforcement in specified directories.
+
+    Parameters
+    ----------
+    dirs: list of str
+        The directories to scan for style violations.
+    """
+
     shell('pip install --upgrade flake8')
     shell('flake8 ' + ' '.join(dirs) + ' --max-line-length=120', silent=False)

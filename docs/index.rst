@@ -16,6 +16,7 @@ Python projects.
    :caption: Contents:
 
    gettingstarted
+   coderef
 
 
 
