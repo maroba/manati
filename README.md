@@ -86,7 +86,7 @@ All Python requirements are installed automatically. However, **you need to have
 
 ## Contributing
 
-Suggestions for improvement are always welcome. If you want to contribute writing code or
+Suggestions for improvement or correction are always welcome, just submit an issue. If you want to contribute writing code or
 documentation, please work on the `dev` branch and send a pull request.
 
 #### Credits
