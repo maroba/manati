@@ -9,7 +9,7 @@ description = 'A Python CLI for managing Python projects.'
 name = 'manati'
 year = '2021'
 url = 'https://github.com/maroba/manati'
-version = '0.1.0'
+version = '0.1.1'
 
 setup(
     name=name,
@@ -33,9 +33,11 @@ setup(
                       ],
     # not to be confused with definitions in pyproject.toml [build-system]
     python_requires=">=3.6",
-    keywords=["CLI"],
+    keywords=['CLI', 'cli', 'project management'],
     classifiers=['Operating System :: OS Independent',
                  'Programming Language :: Python :: 3',
+                 'Intended Audience :: Information Technology',
+                 'Environment :: Console'
                  ],
     platforms=['ALL'],
 )
