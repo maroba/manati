@@ -95,6 +95,17 @@ manati run tests --help
 manati run coverage --help
 ```
 
+### Deploy your project to PyPi
+
+You can deploy your project to PyPi using *manati*:
+
+```
+manati deploy
+```
+
+As a prerequisite for deployment, you need an account at *PyPi*.
+
+
 ## Documentation
 
 The full documentation can be found [here](https://manati.readthedocs.io/en/latest/).
