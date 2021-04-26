@@ -57,7 +57,7 @@ def create_project(name, no_git, no_install, author, description, license):
     if not no_install:
         pip_install_project(name)
 
-    click.echo('Happy coding!')
+    click.secho('Happy coding!', fg='blue')
 
 
 @task('Create project structure...', ' OK')
