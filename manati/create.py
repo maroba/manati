@@ -108,8 +108,8 @@ def create_docs(path, name, author):
     shell('pip install -r requirements.txt', root=str(path) + '/docs')
 
     cmd = 'sphinx-quickstart -p %s -a "%s" -v 0.0.1 --no-sep -l en -r 0.0.1 docs' % (name,
-                                                                    author,
-                                                                    )
+                                                                                     author,
+                                                                                     )
     shell(cmd, str(path))
 
     replace(path / 'docs' / 'conf.py', {'alabaster': 'sphinx_rtd_theme'})

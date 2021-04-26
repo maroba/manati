@@ -7,7 +7,7 @@ from manati.add import add_package, add_license
 from manati.utils import confirm_copy
 from manati.validators import validate_project_name
 from manati.deploy import deploy_pypi
-from manati.run import run_tests, run_coverage, run_docs
+from manati.run import run_tests, run_coverage, run_docs, run_flake8
 
 
 @click.group('manati')
@@ -107,7 +107,7 @@ def add_setup_py_command():
 
 @cli.command('deploy')
 @click.option('-i', '--index', 'package_index', type=click.Choice(['pypi'], case_sensitive=False),
-            prompt='Package index', default='pypi')
+              prompt='Package index', default='pypi')
 def deploy(package_index):
     """Deploy project to package repository.
 
@@ -151,6 +151,16 @@ def run_coverage_command(source, test_dir, runner):
 def run_docs_command():
     """Build the documentation and show it in browser."""
     run_docs()
+
+
+@run.command('flake8')
+@click.argument('dirs', nargs=-1)
+def run_flake8_command(dirs):
+    """Run PEP8 style enforcement.
+
+But in contrast to PEP8, by default 120 characters per line are ok.
+"""
+    run_flake8(dirs)
 
 
 if __name__ == '__main__':

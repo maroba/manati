@@ -30,10 +30,12 @@ def run_coverage(source, test_dir, runner):
 
     if runner == 'unittest':
         shell('pip install --upgrade coverage')
-        shell('coverage run --source=%s -m unittest discover %s' % (source, test_dir), silent=False)
+        shell('coverage run --source=%s -m unittest discover %s' %
+              (source, test_dir), silent=False)
     elif runner == 'pytest':
         shell('pip install --upgrade coverage pytest')
-        shell('coverage run --source=%s -m pytest %s' % (source, test_dir), silent=False)
+        shell('coverage run --source=%s -m pytest %s' %
+              (source, test_dir), silent=False)
     else:
         raise click.BadParameter('No such test runner: %s' % runner)
 
@@ -48,3 +50,8 @@ def run_docs():
 
     shell('make clean; make html', root=str(cwd / 'docs'), silent=False)
     click.launch('docs/_build/html/index.html')
+
+
+def run_flake8(dirs):
+    shell('pip install --upgrade flake8')
+    shell('flake8 ' + ' '.join(dirs) + ' --max-line-length=120', silent=False)

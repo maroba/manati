@@ -12,7 +12,8 @@ def deploy_pypi():
     cwd = Path.cwd()
 
     if not exists(cwd / 'setup.py'):
-        raise click.UsageError('No setup.py found. Is this really a project root?')
+        raise click.UsageError(
+            'No setup.py found. Is this really a project root?')
 
     if exists(cwd / 'build') or exists(cwd / 'dist'):
         if click.confirm('build and/or dist folder found which will be deleted. Continue?'):

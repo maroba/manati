@@ -16,7 +16,7 @@ def task(msg_before, msg_after=None):
             try:
                 result = func(*args, **kwargs)
                 if msg_after:
-                   click.secho(msg_after, fg='green')
+                    click.secho(msg_after, fg='green')
                 return result
             except Exception as e:
                 click.secho('ERROR', fg='red')
