@@ -94,18 +94,17 @@ def add_setup_py_command():
     confirm_copy(source, target)
 
 
-@cli.group('deploy')
-def deploy(*args, **kwargs):
-    """Deploy project to package repository."""
-    pass
-
-
-@deploy.command('pypi')
-def deploy_pypi_command():
-    """Deploy current project to PyPi package index.
+@cli.command('deploy')
+@click.option('-i', '--index', 'package_index', type=click.Choice(['pypi'], case_sensitive=False),
+            prompt='Package index', default='pypi')
+def deploy(package_index):
+    """Deploy project to package repository.
 
 Remember to adjust the version, email and url in setup.py before submitting.
     """
+    if package_index != 'pypi':
+        raise click.BadParameter('No such index: %s' % package_index)
+
     deploy_pypi()
 
 
