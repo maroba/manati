@@ -108,40 +108,5 @@ Remember to adjust the version, email and url in setup.py before submitting.
     deploy_pypi()
 
 
-@cli.group('apropos')
-def apropos(*args, **kwargs):
-    """Print reminders on various topics."""
-    pass
-
-
-@apropos.command('tests')
-def apropos_tests_command():
-    """
-How to run tests
-****************
-
-   python -m unittest discover tests
-"""
-    click.echo(apropos_tests_command.__doc__)
-
-
-@apropos.command('install')
-def apropos_install_command():
-    """How to install project for development
-**************************************
-
-In order to install your own project for development, install it in
-development mode (a.k.a editable mode). From the project root directory,
-submit:
-
-    pip install -e .
-
-or
-
-    python setup.py develop
-"""
-    click.echo(apropos_install_command.__doc__)
-
-
 if __name__ == '__main__':
     cli()
