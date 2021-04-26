@@ -15,6 +15,11 @@ Create new Python projects with ready-to-go recommended project structure.
 Add important files to existing projects
 like `setup.py`, `.gitignore`, Sphinx documentation, choose a license and more.
 
+## Installation
+
+```
+pip install --upgrade manati
+```
 
 ## Usage
 
@@ -66,12 +71,6 @@ You can add
 - `docs` folder with Sphinx documentation
 
 Call `manati add --help` for more information.
-
-## Installation
-
-```
-pip install --upgrade manati
-```
 
 ## Documentation
 
