@@ -10,12 +10,12 @@ A command line interface (CLI) for managing Python projects.
 ![Coverage](https://img.shields.io/codecov/c/github/maroba/manati/main.svg)
 [![Doc Status](https://readthedocs.org/projects/manati/badge/?version=latest)](https://manati.readthedocs.io/en/latest/index.html)
 
-Create new Python projects with ready-to-go recommended project structure. 
+**Create** new Python projects with ready-to-go recommended project structure. 
 
-Add important files to existing projects
+**Add** important files to existing projects
 like `setup.py`, `.gitignore`, Sphinx documentation, choose a license and more.
 
-Run test suites, analyze test coverage and deploy to PyPi.
+**Run** test suites, analyze test coverage and **deploy** to PyPi.
 
 Even *manati* is managed using *manati*... so meta.
 
