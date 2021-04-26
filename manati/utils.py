@@ -1,7 +1,9 @@
 import functools
 import os
 import re
+import shutil
 import subprocess
+from os.path import basename
 
 import click
 
@@ -39,7 +41,7 @@ def replace(path, subs):
             f.write(content)
 
 
-def shell(cmd, root=None):
+def shell(cmd, root=None, silent=True):
     """ Silently perform a shell command.
 
     Parameters
@@ -52,7 +54,9 @@ def shell(cmd, root=None):
     """
     if root:
         cmd = 'cd ' + root + '; ' + cmd
-    subprocess.run(cmd, shell=True, stdout=subprocess.DEVNULL)
+    if silent:
+        return subprocess.run(cmd, shell=True, stdout=subprocess.DEVNULL)
+    return subprocess.run(cmd, shell=True)
 
 
 def render(path, template=None, subs=None):
@@ -84,3 +88,11 @@ def render(path, template=None, subs=None):
 
     with open(path, 'w') as f:
         f.write(content)
+
+
+def confirm_copy(source, target):
+    if not os.path.exists(target):
+        shutil.copyfile(source, target)
+    else:
+        if click.confirm('%s file already exists in current directory. Overwrite?' % basename(target)):
+            shutil.copyfile(source, target)

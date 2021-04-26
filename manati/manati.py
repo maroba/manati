@@ -1,13 +1,12 @@
 import pathlib
-import shutil
-import os
-from os.path import basename
 
 import click
 
 from manati.create import create_project, create_docs
 from manati.add import add_package, add_license
+from manati.utils import confirm_copy
 from manati.validators import validate_project_name
+from manati.deploy import deploy_pypi
 
 
 @click.group('manati')
@@ -95,12 +94,19 @@ def add_setup_py_command():
     confirm_copy(source, target)
 
 
-def confirm_copy(source, target):
-    if not os.path.exists(target):
-        shutil.copyfile(source, target)
-    else:
-        if click.confirm('%s file already exists in current directory. Overwrite?' % basename(target)):
-            shutil.copyfile(source, target)
+@cli.group('deploy')
+def deploy(*args, **kwargs):
+    """Deploy project to package repository."""
+    pass
+
+
+@deploy.command('pypi')
+def deploy_pypi_command():
+    """Deploy current project to PyPi package index.
+
+Remember to adjust the version, email and url in setup.py before submitting.
+    """
+    deploy_pypi()
 
 
 @cli.group('apropos')
