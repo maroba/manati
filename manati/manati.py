@@ -25,10 +25,6 @@ def cli():
 """
     pass
 
-"""
-                                                                                                                          
-"""
-
 
 @cli.command('create')
 @click.option('-n', '--name', 'name', required=True, callback=validate_project_name,
