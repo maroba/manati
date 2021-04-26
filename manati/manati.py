@@ -1,17 +1,17 @@
 import pathlib
 import shutil
 import os
+from os.path import basename
 
 import click
 
 from manati.create import create_project, create_docs
 from manati.add import add_package, add_license
-from manati.apropos import help_tests, help_install
 from manati.validators import validate_project_name
 
 
 @click.group('manati')
-def cli(*args, **kwargs):
+def cli():
     """Manati - a command line interface (CLI) for managing Python projects."""
     pass
 
@@ -26,7 +26,7 @@ def cli(*args, **kwargs):
 @click.option('-a', '--author', 'author', default='AUTHOR', prompt='Author')
 @click.option('-d', '--description', 'description', default='', prompt='(Short) description')
 @click.option('-l', '--license', 'license', type=click.Choice([
-'MIT', 'GPLv3', 'Apache', 'None'
+    'MIT', 'GPLv3', 'Apache', 'None'
 ], case_sensitive=False), prompt='License', default='None')
 def create_project_command(name, no_git, no_install, author, description, license):
     """Create a standard Python project structure.
@@ -82,11 +82,7 @@ def add_gitignore_command():
     target = cwd / '.gitignore'
     source = pathlib.Path(__file__).parent / 'templates' / '.gitignore'
 
-    if not os.path.exists(target):
-        shutil.copyfile(source, target)
-    else:
-        if click.confirm('.gitignore file already exists in current directory. Overwrite?'):
-            shutil.copyfile(source, target)
+    confirm_copy(source, target)
 
 
 @add.command('setup.py')
@@ -96,10 +92,14 @@ def add_setup_py_command():
     target = cwd / 'setup.py'
     source = pathlib.Path(__file__).parent / 'templates' / 'setup.py'
 
+    confirm_copy(source, target)
+
+
+def confirm_copy(source, target):
     if not os.path.exists(target):
         shutil.copyfile(source, target)
     else:
-        if click.confirm('setup.py file already exists in current directory. Overwrite?'):
+        if click.confirm('%s file already exists in current directory. Overwrite?' % basename(target)):
             shutil.copyfile(source, target)
 
 
@@ -111,14 +111,31 @@ def apropos(*args, **kwargs):
 
 @apropos.command('tests')
 def apropos_tests_command():
-    """Help on how to run tests."""
-    help_tests()
+    """
+How to run tests
+****************
+
+   python -m unittest discover tests
+"""
+    click.echo(apropos_tests_command.__doc__)
 
 
 @apropos.command('install')
 def apropos_install_command():
-    """Help on how to install in development mode."""
-    help_install()
+    """How to install project for development
+**************************************
+
+In order to install your own project for development, install it in
+development mode (a.k.a editable mode). From the project root directory,
+submit:
+
+    pip install -e .
+
+or
+
+    python setup.py develop
+"""
+    click.echo(apropos_install_command.__doc__)
 
 
 if __name__ == '__main__':
