@@ -84,6 +84,11 @@ The full documentation can be found [here](https://manati.readthedocs.io/en/late
 
 All Python requirements are installed automatically. However, **you need to have `git` installed**.
 
+## Contributing
+
+Suggestions for improvement are always welcome. If you want to contribute writing code or
+documentation, please work on the `dev` branch and send a pull request.
+
 #### Credits
 
 Images by [Natur Vektoren von Vecteezy](https://de.vecteezy.com/gratis-vektor/natur).
