@@ -23,7 +23,7 @@ class TestDeploy(unittest.TestCase):
                                                                                         'MODULE_NAME': 'test_project'})
 
                 os.chdir(pathlib.Path.cwd() / 'test_project')
-
+                shell('mkdir build dist')
                 result = runner.invoke(cli, ['deploy', '-i', 'pypi'], input='y\n')
                 assert result.exit_code == 0
 

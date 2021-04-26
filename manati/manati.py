@@ -111,6 +111,7 @@ Remember to adjust the version, email and url in setup.py before submitting.
 
 @cli.group('run')
 def run(*args, **kwargs):
+    """Run tests or analyze test coverage"""
     pass
 
 

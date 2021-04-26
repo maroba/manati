@@ -18,7 +18,11 @@ class TestRun(unittest.TestCase):
                                                                                     'MODULE_NAME': 'test_project'})
 
             os.chdir(pathlib.Path.cwd() / 'test_project')
+            shell('pip install -e .')
             result = runner.invoke(cli, ['run', 'tests', '-r', 'unittest', '-d', 'tests'])
+            assert result.exit_code == 0
+
+            result = runner.invoke(cli, ['run', 'tests', '-r', 'pytest', '-d', 'tests'])
             assert result.exit_code == 0
 
 
@@ -28,5 +32,10 @@ class TestRun(unittest.TestCase):
             create_project_structure('test_project', pathlib.Path('test_project'), {'PROJECT_NAME': 'test_project',
                                                                                     'MODULE_NAME': 'test_project'})
             os.chdir(pathlib.Path.cwd() / 'test_project')
+            shell('pip install -e .')
+
             result = runner.invoke(cli, ['run', 'coverage', '-r', 'unittest', '-s', 'test_project', '-t', 'tests'])
+            assert result.exit_code == 0
+
+            result = runner.invoke(cli, ['run', 'coverage', '-r', 'pytest', '-s', 'test_project', '-t', 'tests'])
             assert result.exit_code == 0
