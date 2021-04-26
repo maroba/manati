@@ -9,7 +9,7 @@ description = 'A CLI for managing Python projects.'
 name = 'manati'
 year = '2021'
 url = 'https://github.com/maroba/manati'
-version = '0.2.0.dev'
+version = '0.2.0'
 
 setup(
     name=name,
