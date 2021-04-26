@@ -32,7 +32,7 @@ setup(
                       'sphinx'
                       ],
     # not to be confused with definitions in pyproject.toml [build-system]
-    python_requires=">=2.7",
+    python_requires=">=3.6",
     keywords=["CLI"],
     classifiers=['Operating System :: OS Independent',
                  'Programming Language :: Python :: 3',
