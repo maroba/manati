@@ -1,6 +1,7 @@
 import unittest
-from os.path import exists
+from os.path import exists, getsize
 from pathlib import Path
+
 
 from click.testing import CliRunner
 
@@ -25,6 +26,13 @@ class TestAdd(unittest.TestCase):
             add_license(cwd, 'MIT')
             self.assertTrue(exists(cwd / 'LICENSE'))
 
+    def test_add_license_with_string(self):
+        runner = CliRunner()
+        with runner.isolated_filesystem():
+            shell('touch setup.py')
+            add_license('.', 'MIT')
+            self.assertTrue(exists(Path.cwd() / 'LICENSE'))
+
     def test_add_gitignore(self):
         runner = CliRunner()
         with runner.isolated_filesystem():
@@ -39,6 +47,16 @@ class TestAdd(unittest.TestCase):
             cwd = Path.cwd()
             self.assertTrue(exists(cwd / 'setup.py'))
 
+    def test_add_setup_py_overwrite(self):
+        runner = CliRunner()
+        with runner.isolated_filesystem():
+            shell('touch setup.py')
+            cwd = Path.cwd()
+            assert getsize(cwd / 'setup.py') == 0
+            runner.invoke(cli, ['add', 'setup.py'], input='y\n')
+
+            self.assertTrue(exists(cwd / 'setup.py'))
+            assert getsize(cwd / 'setup.py') > 0
 
 
 if __name__ == '__main__':

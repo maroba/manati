@@ -1,6 +1,7 @@
 import pathlib
 import shutil
 import os
+from os.path import basename
 
 import click
 
@@ -81,12 +82,7 @@ def add_gitignore_command():
     target = cwd / '.gitignore'
     source = pathlib.Path(__file__).parent / 'templates' / '.gitignore'
 
-    if not os.path.exists(target):
-        shutil.copyfile(source, target)
-    else:
-        if click.confirm('.gitignore file already exists in current directory. Overwrite?'):
-            shutil.copyfile(source, target)
-
+    confirm_copy(source, target)
 
 @add.command('setup.py')
 def add_setup_py_command():
@@ -95,10 +91,14 @@ def add_setup_py_command():
     target = cwd / 'setup.py'
     source = pathlib.Path(__file__).parent / 'templates' / 'setup.py'
 
+    confirm_copy(source, target)
+
+
+def confirm_copy(source, target):
     if not os.path.exists(target):
         shutil.copyfile(source, target)
     else:
-        if click.confirm('setup.py file already exists in current directory. Overwrite?'):
+        if click.confirm('%s file already exists in current directory. Overwrite?' % basename(target)):
             shutil.copyfile(source, target)
 
 
