@@ -15,6 +15,8 @@ Create new Python projects with ready-to-go recommended project structure.
 Add important files to existing projects
 like `setup.py`, `.gitignore`, Sphinx documentation, choose a license and more.
 
+Run test suites, analyze test coverage and deploy to PyPi.
+
 ## Installation
 
 ```
@@ -71,6 +73,27 @@ You can add
 - `docs` folder with Sphinx documentation
 
 Call `manati add --help` for more information.
+
+### Run tests and test coverage of existing project
+
+To run the test suite of your existing project, run
+
+```
+manati run tests
+```
+
+To analyze the test coverage of your existing project, run
+
+```
+manati run coverage
+```
+
+For more information, run 
+
+```
+manati run tests --help
+manati run coverage --help
+```
 
 ## Documentation
 

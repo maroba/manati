@@ -116,18 +116,24 @@ def run(*args, **kwargs):
 
 @run.command('tests')
 @click.option('-d', 'directory', required=True, prompt='Test folder', help='Directory with tests.')
-def run_tests_command(directory):
+@click.option('-r', '--runner', 'runner', required=True, default='unittest',
+              type=click.Choice(['unittest', 'pytest'], case_sensitive=False),
+              help='Test runner', prompt='Test runner')
+def run_tests_command(directory, runner):
     """Run tests in a test folder."""
-    run_tests(directory)
+    run_tests(directory, runner)
 
 
 @run.command('coverage')
 @click.option('-s', '--source', 'source', required=True, help='Package on which to run coverage.',
               prompt='Source package')
 @click.option('-t', '--tests', 'test_dir', required=True, prompt='Test folder', help='Directory with tests.')
-def run_coverage_command(source, test_dir):
+@click.option('-r', '--runner', 'runner', required=True, default='unittest',
+              type=click.Choice(['unittest', 'pytest'], case_sensitive=False),
+              help='Test runner', prompt='Test runner')
+def run_coverage_command(source, test_dir, runner):
     """Run test coverage."""
-    run_coverage(source, test_dir)
+    run_coverage(source, test_dir, runner)
 
 
 if __name__ == '__main__':

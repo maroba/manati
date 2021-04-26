@@ -60,28 +60,39 @@ You can add
 
 Call `manati add --help` for more information.
 
+Run tests and test coverage
+---------------------------
 
-Apropos
--------
-
-I often forget how to do typical tasks on the command line, like
-how to run all available tests in a directory. To get a reminder,
-you can use the `manati apropos` command. For example,
+Run your test suite with
 
 .. code-block::
 
-    manati apropos tests
+    manati run tests
 
-shows::
+where you have the choice of two different test runners.
 
-    How to run tests
-    ****************
+Analyze the test coverage with
 
-       python -m unittest discover tests
+.. code-block::
 
+    manati run coverage
 
+This shows you the percentage of test coverage for each module and
+the lines that are not covered.
 
-All available *apropos* subcommands can be found by::
+Deploy to PyPi
+--------------
 
-    manati apropos --help
+You can deploy your project to PyPi using *manati*:
 
+.. code-block::
+
+    manati deploy
+
+As a prerequisite for deployment, you need an account at *PyPi*. You can register for one
+here register_.
+
+.. _register: https://pypi.org/account/register/
+
+Please remember that you have to insert valid values for `version`, `email` and `url` in the
+`setup.py` file.
