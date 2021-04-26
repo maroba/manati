@@ -24,5 +24,10 @@ def deploy_pypi():
 
     shell('pip install --upgrade wheel twine', silent=False)
     shell('python setup.py sdist bdist_wheel', silent=False)
+
+    do_twine()
+
+
+def do_twine():
     click.echo('Log in to PyPi...')
     shell('twine upload *', 'dist', silent=False)
