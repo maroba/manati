@@ -72,7 +72,7 @@ or your `.gitignore` is missing. You can add those special files with the `manat
 manati add license
 ```
 
-where you have the choice between standard license texts like MIT and GPLv3. 
+where you have the choice between standard license texts like MIT, GPLv3, Apache, ... 
 
 #### Add a `.gitignore` file
 
@@ -101,30 +101,55 @@ makes a `./docs` folder and sets up a *Sphinx*-based documentation in `Read-The-
 
 Call `manati add --help` for more information.
 
-### Run tests and test coverage of existing project
+### Run stuff
 
-To run the test suite of your existing project, run
+#### Run tests
 
 ```
 manati run tests
 ```
 
-To analyze the test coverage of your existing project, run
+#### Analyze test coverage
 
 ```
 manati run coverage
 ```
 
-### Deploy your project to PyPi
-
-You can deploy your project to PyPi using *manati*:
+#### Re-Build docs and show it browser
 
 ```
-manati deploy
+manati run docs
+``` 
+
+#### Run PEP8 style analyzer
+
 ```
+manati run flake8
+```
+
+### Deploy your project
+
+
+#### To PyPi
+
+```
+manati deploy pypi
+```
+
+After that anyone in the world can install your package using *pip*.
 
 As a prerequisite for deployment, you need an account at *PyPi*.
 
+#### To Github, Gitlab, etc.
+
+Create an empty repository at the platform of your choice, like github, and 
+deploy your local project repository there, e.g.:
+
+```
+manati deploy repo
+```
+
+After that your local repo is in sync the remote one.
 
 ## Documentation
 

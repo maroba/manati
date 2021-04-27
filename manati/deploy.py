@@ -30,6 +30,12 @@ def deploy_pypi():
     do_twine()
 
 
+def deploy_github(url, main):
+    shell('git remote add origin ' + url, silent=False)
+    shell('git branch -M ' + main, silent=False)
+    shell('git push -u origin ' + main, silent=False)
+
+
 def do_twine():
     """Login and upload to PyPi."""
     click.echo('Log in to PyPi...')

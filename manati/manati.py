@@ -2,11 +2,11 @@ import pathlib
 
 import click
 
-from manati.create import create_project, create_docs
 from manati.add import add_package, add_license
+from manati.create import create_project, create_docs
 from manati.utils import confirm_copy
 from manati.validators import validate_project_name
-from manati.deploy import deploy_pypi
+from manati.deploy import deploy_pypi, deploy_github
 from manati.run import run_tests, run_coverage, run_docs, run_flake8
 
 
@@ -48,6 +48,76 @@ def create_project_command(name, no_git, no_install, author, description, licens
         create_project(name, no_git, no_install, author, description, license)
     except Exception as e:
         click.echo(e)
+
+
+@cli.group('deploy')
+def deploy(*args, **kwargs):
+    """Deploy your project."""
+    pass
+
+
+@deploy.command('pypi')
+def deploy_pypi_command(target):
+    """Deploy project to PyPi package repository.
+
+Remember to adjust the version, email and url in setup.py before submitting.
+"""
+    deploy_pypi()
+
+
+@deploy.command('repo')
+@click.option('-u', '--url', 'url', required=True, prompt='URL of the remote repository (github, gitlab, etc.)?',
+              help='URL of the remote repository (github, gitlab, etc.)')
+@click.option('-m', '--main-branch', 'main', required=True, default='main',
+              prompt='Default branch (main, master, etc.)?',
+              help='The default remote branch')
+def deploy_repo_command(url, main):
+    """Deploy local git repository to github, gitlab, bitbucket, etc."""
+    deploy_github(url, main)
+
+
+@cli.group('run')
+def run(*args, **kwargs):
+    """Run tests or analyze test coverage"""
+    pass
+
+
+@run.command('tests')
+@click.option('-t', 'directory', required=True, prompt='Test folder', help='Directory with tests.')
+@click.option('-r', '--runner', 'runner', required=True, default='unittest',
+              type=click.Choice(['unittest', 'pytest'], case_sensitive=False),
+              help='Test runner', prompt='Test runner')
+def run_tests_command(directory, runner):
+    """Run tests in a test folder."""
+    run_tests(directory, runner)
+
+
+@run.command('coverage')
+@click.option('-s', '--source', 'source', required=True, help='Package on which to run coverage.',
+              prompt='Source package')
+@click.option('-t', '--tests', 'test_dir', required=True, prompt='Test folder', help='Directory with tests.')
+@click.option('-r', '--runner', 'runner', required=True, default='unittest',
+              type=click.Choice(['unittest', 'pytest'], case_sensitive=False),
+              help='Test runner', prompt='Test runner')
+def run_coverage_command(source, test_dir, runner):
+    """Run test coverage."""
+    run_coverage(source, test_dir, runner)
+
+
+@run.command('docs')
+def run_docs_command():
+    """Build the documentation and show it in browser."""
+    run_docs()
+
+
+@run.command('flake8')
+@click.argument('dirs', nargs=-1)
+def run_flake8_command(dirs):
+    """Run PEP8 style enforcement.
+
+But in contrast to PEP8, by default 120 characters per line are ok.
+"""
+    run_flake8(dirs)
 
 
 @cli.group('add')
@@ -103,64 +173,6 @@ def add_setup_py_command():
     source = pathlib.Path(__file__).parent / 'templates' / 'setup.py'
 
     confirm_copy(source, target)
-
-
-@cli.command('deploy')
-@click.option('-i', '--index', 'package_index', type=click.Choice(['pypi'], case_sensitive=False),
-              prompt='Package index', default='pypi')
-def deploy(package_index):
-    """Deploy project to package repository.
-
-Remember to adjust the version, email and url in setup.py before submitting.
-    """
-    if package_index != 'pypi':
-        raise click.BadParameter('No such index: %s' % package_index)
-
-    deploy_pypi()
-
-
-@cli.group('run')
-def run(*args, **kwargs):
-    """Run tests or analyze test coverage"""
-    pass
-
-
-@run.command('tests')
-@click.option('-d', 'directory', required=True, prompt='Test folder', help='Directory with tests.')
-@click.option('-r', '--runner', 'runner', required=True, default='unittest',
-              type=click.Choice(['unittest', 'pytest'], case_sensitive=False),
-              help='Test runner', prompt='Test runner')
-def run_tests_command(directory, runner):
-    """Run tests in a test folder."""
-    run_tests(directory, runner)
-
-
-@run.command('coverage')
-@click.option('-s', '--source', 'source', required=True, help='Package on which to run coverage.',
-              prompt='Source package')
-@click.option('-t', '--tests', 'test_dir', required=True, prompt='Test folder', help='Directory with tests.')
-@click.option('-r', '--runner', 'runner', required=True, default='unittest',
-              type=click.Choice(['unittest', 'pytest'], case_sensitive=False),
-              help='Test runner', prompt='Test runner')
-def run_coverage_command(source, test_dir, runner):
-    """Run test coverage."""
-    run_coverage(source, test_dir, runner)
-
-
-@run.command('docs')
-def run_docs_command():
-    """Build the documentation and show it in browser."""
-    run_docs()
-
-
-@run.command('flake8')
-@click.argument('dirs', nargs=-1)
-def run_flake8_command(dirs):
-    """Run PEP8 style enforcement.
-
-But in contrast to PEP8, by default 120 characters per line are ok.
-"""
-    run_flake8(dirs)
 
 
 if __name__ == '__main__':

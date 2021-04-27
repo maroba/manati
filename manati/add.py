@@ -63,3 +63,5 @@ def add_license(path, license):
         click.echo('Warning: cannot find setup.py to set license type.')
         return
     substitute(setup_py, "license='None'", "license='%s'" % license)
+
+
