@@ -79,7 +79,7 @@ class TestAdd(unittest.TestCase):
             cwd = Path.cwd()
             target = cwd / '.github' / 'workflows' / 'check.yml'
             assert not exists(target)
-            runner.invoke(cli, ['add', 'github-action'], input='abc\nghi\n')
+            result = runner.invoke(cli, ['add', 'github-action'], input='abc\nghi\n')
 
             assert exists(target)
             check_yml = file_content(target)

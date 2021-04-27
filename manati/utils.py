@@ -108,6 +108,9 @@ def confirm_copy(source, target):
 
 
 def file_content(path):
+    if not os.path.exists(path):
+        return ''
+
     with open(path, 'r') as f:
         content = f.read()
     return content
@@ -120,15 +123,11 @@ def find_project_data():
     """
     cwd = Path.cwd()
 
-    is_root_msg = 'Is this really a project root?'
-    if not exists(cwd / 'setup.py'):
-        raise NotFoundException('No setup.py found. ' + is_root_msg)
-
     # parse setup.py
 
     def find_parameter(par_name, text):
 
-        pattern = re.compile(par_name + '\s*=\s*([^,)]+)')
+        pattern = re.compile(par_name + r'\s*=\s*([^,)]+)')
         matches = pattern.findall(text)
         parameter = None
         for m in matches:
@@ -150,7 +149,7 @@ def find_project_data():
         if value is not None:
             info[key] = value
 
-    if info['name'] and exists(cwd / info['name']):
+    if info.get('name') and exists(cwd / info['name']):
         info['package'] = info['name']
 
     test_dir = cwd / 'tests'
