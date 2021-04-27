@@ -1,10 +1,11 @@
 import pathlib
+import os
 
 import click
 
-from manati.add import add_package, add_license
+from manati.add import add_package, add_license, add_github_action
 from manati.create import create_project, create_docs
-from manati.utils import confirm_copy
+from manati.utils import confirm_copy, find_project_data
 from manati.validators import validate_project_name
 from manati.deploy import deploy_pypi, deploy_github
 from manati.run import run_tests, run_coverage, run_docs, run_flake8
@@ -33,7 +34,7 @@ def cli():
               help='Do not create git repository')
 @click.option('-I', '--no-install', 'no_install', is_flag=True, default=False,
               help='Do not pip-install in editable mode')
-@click.option('-a', '--author', 'author', default='AUTHOR', prompt='Author')
+@click.option('-a', '--author', 'author', default=lambda: os.environ.get('USER', 'AUTHOR'), prompt='Author')
 @click.option('-d', '--description', 'description', default='', prompt='(Short) description')
 @click.option('-l', '--license', 'license', type=click.Choice([
     'MIT', 'GPLv3', 'Apache', 'None'
@@ -94,8 +95,11 @@ def run_tests_command(directory, runner):
 
 @run.command('coverage')
 @click.option('-s', '--source', 'source', required=True, help='Package on which to run coverage.',
-              prompt='Source package')
-@click.option('-t', '--tests', 'test_dir', required=True, prompt='Test folder', help='Directory with tests.')
+              prompt='Source package',
+              default=lambda: find_project_data().get('package', None))
+@click.option('-t', '--tests', 'test_dir', required=True,
+              prompt='Test folder', help='Directory with tests.',
+              default=lambda: find_project_data().get('tests', None))
 @click.option('-r', '--runner', 'runner', required=True, default='unittest',
               type=click.Choice(['unittest', 'pytest'], case_sensitive=False),
               help='Test runner', prompt='Test runner')
@@ -175,8 +179,29 @@ def add_setup_py_command():
     confirm_copy(source, target)
 
 
-#@add.command('workflow')
+@add.command('github-action')
+@click.option('-p', '--package', 'package', required=True, prompt='Package',
+              default=lambda: find_project_data().get('package', None))
+@click.option('-t', '--tests', 'tests', required=True, prompt='Test folder',
+              default=lambda: find_project_data().get('tests', None))
+def add_github_action_command(package, tests):
+    """Add github default action"""
+    add_github_action(package, tests)
 
+
+@cli.command('info')
+def info_command():
+    """Scan for project data."""
+
+    info = find_project_data()
+    click.echo(info)
+    click.echo('Project name: ' + info.get('name', 'NOT FOUND'))
+    click.echo('Package: ' + str(info.get('package', 'NOT FOUND')))
+    click.echo('Test directory: ' + str(info.get('tests', 'NOT FOUND')))
+    click.echo('Version: ' + info.get('version', 'NOT FOUND'))
+    click.echo('Author: ' + info.get('author', 'NOT FOUND'))
+    click.echo('Email: ' + info.get('email', 'NOT FOUND'))
+    click.echo('URL: ' + info.get('url', 'NOT FOUND'))
 
 
 if __name__ == '__main__':

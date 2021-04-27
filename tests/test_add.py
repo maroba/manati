@@ -1,4 +1,5 @@
 import unittest
+import os
 from os.path import exists, getsize
 from pathlib import Path
 
@@ -6,7 +7,7 @@ import click
 from click.testing import CliRunner
 
 from manati.add import add_package, add_license
-from manati.utils import shell
+from manati.utils import shell, file_content
 from manati.manati import cli
 
 
@@ -71,6 +72,40 @@ class TestAdd(unittest.TestCase):
 
             self.assertTrue(exists(cwd / 'setup.py'))
             assert getsize(cwd / 'setup.py') > 0
+
+    def test_add_github_action(self):
+        runner = CliRunner()
+        with runner.isolated_filesystem():
+            cwd = Path.cwd()
+            target = cwd / '.github' / 'workflows' / 'check.yml'
+            assert not exists(target)
+            result = runner.invoke(cli, ['add', 'github-action'], input='abc\nghi\n')
+
+            assert exists(target)
+            check_yml = file_content(target)
+            assert 'abc' in check_yml
+            assert 'ghi' in check_yml
+            assert ':PACKAGE:' not in check_yml
+            assert ':TEST:' not in check_yml
+
+    def test_add_github_action_overwrite(self):
+        runner = CliRunner()
+        with runner.isolated_filesystem():
+            cwd = Path.cwd()
+            os.mkdir(cwd / '.github')
+            os.mkdir(cwd / '.github' / 'workflows')
+            target = cwd / '.github' / 'workflows' / 'check.yml'
+            shell('touch ' + str(target))
+
+            assert exists(target)
+            runner.invoke(cli, ['add', 'github-action'], input='abc\nghi\ny\n')
+
+            assert exists(target)
+            check_yml = file_content(target)
+            assert 'abc' in check_yml
+            assert 'ghi' in check_yml
+            assert ':PACKAGE:' not in check_yml
+            assert ':TEST:' not in check_yml
 
 
 if __name__ == '__main__':

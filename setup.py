@@ -8,14 +8,13 @@ email = 'matthias.r.baer@googlemail.com'
 description = 'A CLI for managing Python projects.'
 name = 'manati'
 year = '2021'
-url = 'https://github.com/maroba/manati'
 version = '0.3.0'
 
 setup(
     name=name,
     author=author,
     author_email=email,
-    url=url,
+    url='https://github.com/maroba/manati',
     version=version,
     packages=find_packages(),
     package_dir={name: name},

@@ -23,6 +23,7 @@ setup(
     license='None',
     description=description,
     long_description=open('README.md').read() if exists('README.md') else '',
+    long_description_content_type="text/markdown",
     install_requires=['sphinx',
                       ],
     python_requires=">=3.6",
