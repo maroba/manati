@@ -2,7 +2,7 @@ import pathlib
 
 import click
 
-from manati.add import add_package, add_license
+from manati.add import add_package, add_license, add_github_action
 from manati.create import create_project, create_docs
 from manati.utils import confirm_copy
 from manati.validators import validate_project_name
@@ -175,8 +175,12 @@ def add_setup_py_command():
     confirm_copy(source, target)
 
 
-#@add.command('workflow')
-
+@add.command('github-action')
+@click.option('-p', '--package', 'package', required=True, prompt='Package')
+@click.option('-t', '--tests', 'tests', required=True, prompt='Test folder')
+def add_github_action_command(package, tests):
+    """Add github default action"""
+    add_github_action(package, tests)
 
 
 if __name__ == '__main__':
