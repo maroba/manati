@@ -82,3 +82,4 @@ def add_github_action(package, tests):
     render(target, templates / 'check.yml',
            {':PACKAGE:': package,
             ':TEST:': tests})
+    click.echo('Created github action under ' + str(target))

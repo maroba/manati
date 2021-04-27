@@ -101,6 +101,15 @@ makes a `./docs` folder and sets up a *Sphinx*-based documentation in `Read-The-
 
 Call `manati add --help` for more information.
 
+#### Add github actions
+
+Add a standard github action which automatically runs build and tests
+on the github CI/CD systems whenever you push a commit:
+
+```
+manati add github-action
+```  
+
 ### Run stuff
 
 #### Run tests
