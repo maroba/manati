@@ -19,10 +19,10 @@ class TestRun(unittest.TestCase):
 
             os.chdir(pathlib.Path.cwd() / 'test_project')
             shell('pip install -e .')
-            result = runner.invoke(cli, ['run', 'tests', '-r', 'unittest', '-d', 'tests'])
+            result = runner.invoke(cli, ['run', 'tests', '-r', 'unittest', '-t', 'tests'])
             assert result.exit_code == 0
 
-            result = runner.invoke(cli, ['run', 'tests', '-r', 'pytest', '-d', 'tests'])
+            result = runner.invoke(cli, ['run', 'tests', '-r', 'pytest', '-t', 'tests'])
             assert result.exit_code == 0
 
 

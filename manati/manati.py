@@ -57,7 +57,7 @@ def deploy(*args, **kwargs):
 
 
 @deploy.command('pypi')
-def deploy_pypi_command(target):
+def deploy_pypi_command():
     """Deploy project to PyPi package repository.
 
 Remember to adjust the version, email and url in setup.py before submitting.
@@ -173,6 +173,10 @@ def add_setup_py_command():
     source = pathlib.Path(__file__).parent / 'templates' / 'setup.py'
 
     confirm_copy(source, target)
+
+
+#@add.command('workflow')
+
 
 
 if __name__ == '__main__':
