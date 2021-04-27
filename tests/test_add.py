@@ -6,7 +6,7 @@ import click
 from click.testing import CliRunner
 
 from manati.add import add_package, add_license
-from manati.utils import shell
+from manati.utils import shell, file_content
 from manati.manati import cli
 
 
@@ -71,6 +71,21 @@ class TestAdd(unittest.TestCase):
 
             self.assertTrue(exists(cwd / 'setup.py'))
             assert getsize(cwd / 'setup.py') > 0
+
+    def test_add_github_action(self):
+        runner = CliRunner()
+        with runner.isolated_filesystem():
+            cwd = Path.cwd()
+            target = cwd / '.github' / 'workflows' / 'check.yml'
+            assert not exists(target)
+            runner.invoke(cli, ['add', 'github-action'], input='abc\nghi\n')
+
+            assert exists(target)
+            check_yml = file_content(target)
+            assert 'abc' in check_yml
+            assert 'ghi' in check_yml
+            assert ':PACKAGE:' not in check_yml
+            assert ':TEST:' not in check_yml
 
 
 if __name__ == '__main__':

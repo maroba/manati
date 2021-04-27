@@ -101,3 +101,9 @@ def confirm_copy(source, target):
     else:
         if click.confirm('%s file already exists in current directory. Overwrite?' % basename(target)):
             shutil.copyfile(source, target)
+
+
+def file_content(path):
+    with open(path, 'r') as f:
+        content = f.read()
+    return content
