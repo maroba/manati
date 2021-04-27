@@ -155,11 +155,11 @@ def find_project_data():
 
     test_dir = cwd / 'tests'
     if exists(test_dir) and os.path.isdir(test_dir):
-        info['tests'] = test_dir
+        info['tests'] = 'tests'
 
     if 'tests' not in info:
         test_dir = cwd / 'test'
         if exists(test_dir) and os.path.isdir(test_dir):
-            info['tests'] = test_dir
+            info['tests'] = 'test'
 
     return info

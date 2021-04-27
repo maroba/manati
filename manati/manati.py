@@ -1,4 +1,5 @@
 import pathlib
+import os
 
 import click
 
@@ -33,7 +34,7 @@ def cli():
               help='Do not create git repository')
 @click.option('-I', '--no-install', 'no_install', is_flag=True, default=False,
               help='Do not pip-install in editable mode')
-@click.option('-a', '--author', 'author', default='AUTHOR', prompt='Author')
+@click.option('-a', '--author', 'author', default=lambda: os.environ.get('USER', 'AUTHOR'), prompt='Author')
 @click.option('-d', '--description', 'description', default='', prompt='(Short) description')
 @click.option('-l', '--license', 'license', type=click.Choice([
     'MIT', 'GPLv3', 'Apache', 'None'
@@ -94,8 +95,11 @@ def run_tests_command(directory, runner):
 
 @run.command('coverage')
 @click.option('-s', '--source', 'source', required=True, help='Package on which to run coverage.',
-              prompt='Source package')
-@click.option('-t', '--tests', 'test_dir', required=True, prompt='Test folder', help='Directory with tests.')
+              prompt='Source package',
+              default=lambda: find_project_data().get('package', ''))
+@click.option('-t', '--tests', 'test_dir', required=True,
+              prompt='Test folder', help='Directory with tests.',
+              default=lambda: find_project_data().get('tests', ''))
 @click.option('-r', '--runner', 'runner', required=True, default='unittest',
               type=click.Choice(['unittest', 'pytest'], case_sensitive=False),
               help='Test runner', prompt='Test runner')
@@ -176,8 +180,10 @@ def add_setup_py_command():
 
 
 @add.command('github-action')
-@click.option('-p', '--package', 'package', required=True, prompt='Package')
-@click.option('-t', '--tests', 'tests', required=True, prompt='Test folder')
+@click.option('-p', '--package', 'package', required=True, prompt='Package',
+              default=lambda: find_project_data().get('package', ''))
+@click.option('-t', '--tests', 'tests', required=True, prompt='Test folder',
+              default=lambda: find_project_data().get('tests', ''))
 def add_github_action_command(package, tests):
     """Add github default action"""
     add_github_action(package, tests)
