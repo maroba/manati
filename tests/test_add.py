@@ -1,4 +1,5 @@
 import unittest
+import os
 from os.path import exists, getsize
 from pathlib import Path
 
@@ -79,6 +80,25 @@ class TestAdd(unittest.TestCase):
             target = cwd / '.github' / 'workflows' / 'check.yml'
             assert not exists(target)
             runner.invoke(cli, ['add', 'github-action'], input='abc\nghi\n')
+
+            assert exists(target)
+            check_yml = file_content(target)
+            assert 'abc' in check_yml
+            assert 'ghi' in check_yml
+            assert ':PACKAGE:' not in check_yml
+            assert ':TEST:' not in check_yml
+
+    def test_add_github_action_overwrite(self):
+        runner = CliRunner()
+        with runner.isolated_filesystem():
+            cwd = Path.cwd()
+            os.mkdir(cwd / '.github')
+            os.mkdir(cwd / '.github' / 'workflows')
+            target = cwd / '.github' / 'workflows' / 'check.yml'
+            shell('touch ' + str(target))
+
+            assert exists(target)
+            runner.invoke(cli, ['add', 'github-action'], input='abc\nghi\ny\n')
 
             assert exists(target)
             check_yml = file_content(target)
