@@ -13,7 +13,7 @@ class TestInfo(unittest.TestCase):
     def test_info(self):
         runner = CliRunner()
         with runner.isolated_filesystem():
-            create_project('abc', True, True, 'test_author', 'test_desc', 'MIT')
+            create_project('abc', False, False, 'test_author', 'test_desc', 'MIT')
             os.chdir(Path.cwd() / 'abc')
             result = runner.invoke(cli, ['info'])
             assert result.exit_code == 0
