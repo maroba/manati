@@ -27,7 +27,7 @@ pip install --upgrade manati
 
 ## Usage
 
-### Creating a project
+### Creating a new project
 
 ```
 manati create -n myproject
@@ -66,13 +66,38 @@ After creation, the project is already installed in development (editable) mode,
 Sometimes you have an existing project, but initially you did not choose a license,
 or your `.gitignore` is missing. You can add those special files with the `manati add` command.
 
-You can add
+#### Add a license
 
-- `setup.py` file
-- `.gitignore` file
-- choose a license
-- new packages
-- `docs` folder with Sphinx documentation
+```
+manati add license
+```
+
+where you have the choice between standard license texts like MIT and GPLv3. 
+
+#### Add a `.gitignore` file
+
+```
+manati add gitignore
+```
+
+The created `.gitignore` contains all usual patterns that should typically be ignored
+by git in Python projects.
+
+#### Add a `setup.py` file
+
+```
+manati add setup.py 
+```
+
+#### Add a project documentation folder
+
+```
+manati add docs
+```
+
+makes a `./docs` folder and sets up a *Sphinx*-based documentation in `Read-The-Docs`-style:
+
+![generated docs](docs/images/docs-small.png)
 
 Call `manati add --help` for more information.
 
@@ -88,13 +113,6 @@ To analyze the test coverage of your existing project, run
 
 ```
 manati run coverage
-```
-
-For more information, run 
-
-```
-manati run tests --help
-manati run coverage --help
 ```
 
 ### Deploy your project to PyPi
