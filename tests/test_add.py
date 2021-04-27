@@ -73,6 +73,14 @@ class TestAdd(unittest.TestCase):
             self.assertTrue(exists(cwd / 'setup.py'))
             assert getsize(cwd / 'setup.py') > 0
 
+    def test_add_docs(self):
+        runner = CliRunner()
+        with runner.isolated_filesystem():
+            shell('touch setup.py')
+            cwd = Path.cwd()
+            runner.invoke(cli, ['add', 'docs'])
+            self.assertTrue(exists(cwd / 'docs' / 'conf.py'))
+
     def test_add_github_action(self):
         runner = CliRunner()
         with runner.isolated_filesystem():
@@ -106,6 +114,22 @@ class TestAdd(unittest.TestCase):
             assert 'ghi' in check_yml
             assert ':PACKAGE:' not in check_yml
             assert ':TEST:' not in check_yml
+
+    def test_add_github_action_no_overwrite(self):
+        runner = CliRunner()
+        with runner.isolated_filesystem():
+            cwd = Path.cwd()
+            os.mkdir(cwd / '.github')
+            os.mkdir(cwd / '.github' / 'workflows')
+            target = cwd / '.github' / 'workflows' / 'check.yml'
+            shell('touch ' + str(target))
+
+            assert exists(target)
+            runner.invoke(cli, ['add', 'github-action'], input='abc\nghi\nn\n')
+
+            assert exists(target)
+            check_yml = file_content(target)
+            assert 'abc' not in check_yml
 
 
 if __name__ == '__main__':

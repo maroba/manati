@@ -67,17 +67,18 @@ def add_license(path, license):
 
 def add_github_action(package, tests):
     cwd = pathlib.Path.cwd()
+
+    target = cwd / '.github' / 'workflows' / 'check.yml'
+    if os.path.exists(target):
+        if not click.confirm('check.yml already exists. Overwrite?'):
+            click.Abort()
+            return
+
     templates = pathlib.Path(__file__).parent / 'templates'
     if not os.path.exists(cwd / '.github'):
         os.mkdir(cwd / '.github')
     if not os.path.exists(cwd / '.github' / 'workflows'):
         os.mkdir(cwd / '.github' / 'workflows')
-    target = cwd / '.github' / 'workflows' / 'check.yml'
-
-    if os.path.exists(target):
-        if not click.confirm('check.yml already exists. Overwrite?'):
-            click.Abort()
-            return
 
     render(target, templates / 'check.yml',
            {':PACKAGE:': package,
