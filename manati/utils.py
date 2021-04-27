@@ -3,9 +3,13 @@ import os
 import re
 import shutil
 import subprocess
-from os.path import basename
+from pathlib import Path
+from os.path import basename, exists
 
 import click
+
+class NotFoundException(Exception):
+    pass
 
 
 def task(msg_before, msg_after=None):
@@ -107,3 +111,55 @@ def file_content(path):
     with open(path, 'r') as f:
         content = f.read()
     return content
+
+
+def find_project_data():
+    """Try to find relevant project data.
+
+    Should be executed from the project root directory (the one with the setup.py).
+    """
+    cwd = Path.cwd()
+
+    is_root_msg = 'Is this really a project root?'
+    if not exists(cwd / 'setup.py'):
+        raise NotFoundException('No setup.py found. ' + is_root_msg)
+
+    # parse setup.py
+
+    def find_parameter(par_name, text):
+
+        pattern = re.compile(par_name + '\s*=\s*([^,)]+)')
+        matches = pattern.findall(text)
+        parameter = None
+        for m in matches:
+            result = re.search("'([^']*)'", m)
+            if result:
+                parameter = result.group(1)
+            result = re.search('"([^"]*)"', m)
+            if result:
+                parameter = result.group(1)
+            if parameter is not None:
+                break
+        return parameter
+
+    setup_py = file_content(cwd / 'setup.py')
+
+    info = dict()
+    for key in ['name', 'url', 'version', 'email', 'author']:
+        value = find_parameter(key, setup_py)
+        if value is not None:
+            info[key] = value
+
+    if info['name'] and exists(cwd / info['name']):
+        info['package'] = info['name']
+
+    test_dir = cwd / 'tests'
+    if exists(test_dir) and os.path.isdir(test_dir):
+        info['tests'] = test_dir
+
+    if 'tests' not in info:
+        test_dir = cwd / 'test'
+        if exists(test_dir) and os.path.isdir(test_dir):
+            info['tests'] = test_dir
+
+    return info

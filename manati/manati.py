@@ -4,7 +4,7 @@ import click
 
 from manati.add import add_package, add_license, add_github_action
 from manati.create import create_project, create_docs
-from manati.utils import confirm_copy
+from manati.utils import confirm_copy, find_project_data
 from manati.validators import validate_project_name
 from manati.deploy import deploy_pypi, deploy_github
 from manati.run import run_tests, run_coverage, run_docs, run_flake8
@@ -181,6 +181,21 @@ def add_setup_py_command():
 def add_github_action_command(package, tests):
     """Add github default action"""
     add_github_action(package, tests)
+
+
+@cli.command('info')
+def info_command():
+    """Scan for project data."""
+
+    info = find_project_data()
+    click.echo(info)
+    click.echo('Project name: ' + info.get('name', 'NOT FOUND'))
+    click.echo('Package: ' + str(info.get('package', 'NOT FOUND')))
+    click.echo('Test directory: ' + str(info.get('tests', 'NOT FOUND')))
+    click.echo('Version: ' + info.get('version', 'NOT FOUND'))
+    click.echo('Author: ' + info.get('author', 'NOT FOUND'))
+    click.echo('Email: ' + info.get('email', 'NOT FOUND'))
+    click.echo('URL: ' + info.get('url', 'NOT FOUND'))
 
 
 if __name__ == '__main__':
