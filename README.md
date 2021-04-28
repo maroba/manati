@@ -161,6 +161,14 @@ manati deploy repo
 
 After that your local repo is in sync the remote one.
 
+## Note for Windows users
+
+Depending on your environment settings, you may have to use *manati* by prepending `python -m` or `py -m` like in
+
+```
+python -m manati create
+```
+
 ## Documentation
 
 The full documentation can be found [here](https://manati.readthedocs.io/en/latest/).
