@@ -5,7 +5,7 @@ from pathlib import Path
 
 import click
 
-from manati.utils import task, replace, shell, render
+from manati.utils import task, replace, shell, render, find_python
 from manati.add import add_license
 
 
@@ -108,7 +108,7 @@ def create_docs(path, name, author):
 
     shell('pip install -r requirements.txt', root=str(path / 'docs'))
 
-    cmd = 'python -m sphinx.cmd.quickstart -p %s -a "%s" -v 0.0.1 --no-sep -l en -r 0.0.1 docs' % (name,
+    cmd = find_python() + ' -m sphinx.cmd.quickstart -p %s -a "%s" -v 0.0.1 --no-sep -l en -r 0.0.1 docs' % (name,
                                                                                      author,
                                                                                      )
     shell(cmd, str(path), silent=False)
@@ -118,5 +118,5 @@ def create_docs(path, name, author):
 
 @task('Build documentation...', ' OK')
 def build_documentation(name):
-    shell('python -m sphinx.cmd.build -M html . _build', root=str(Path.cwd() / name / 'docs'))
+    shell(find_python() + ' -m sphinx.cmd.build -M html . _build', root=str(Path.cwd() / name / 'docs'))
 
