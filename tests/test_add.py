@@ -58,7 +58,7 @@ class TestAdd(unittest.TestCase):
     def test_add_setup_py(self):
         runner = CliRunner()
         with runner.isolated_filesystem():
-            runner.invoke(cli, ['add', 'setup.py'])
+            runner.invoke(cli, ['add', 'setup.py', '--name', 'test_project'], input='\n\n\n\n\n')
             cwd = Path.cwd()
             self.assertTrue(exists(cwd / 'setup.py'))
 
@@ -68,7 +68,7 @@ class TestAdd(unittest.TestCase):
             shell('touch setup.py')
             cwd = Path.cwd()
             assert getsize(cwd / 'setup.py') == 0
-            runner.invoke(cli, ['add', 'setup.py'], input='y\n')
+            runner.invoke(cli, ['add', 'setup.py', '--name', 'test_project'], input='\n\n\n\n\ny\n')
 
             self.assertTrue(exists(cwd / 'setup.py'))
             assert getsize(cwd / 'setup.py') > 0
