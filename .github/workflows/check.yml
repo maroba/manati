@@ -2,7 +2,6 @@ name: Checks
 
 on:
   push:
-    branches: [ main ]
 
 jobs:
   build:
@@ -11,7 +10,7 @@ jobs:
     strategy:
       matrix:
         python-version: ['3.7']
-        os: [ubuntu-latest, macos-latest]
+        os: [windows-latest]
 
     steps:
     - uses: actions/checkout@v2
@@ -23,15 +22,12 @@ jobs:
       run: |
         # prerequisites
         python -m pip install --upgrade pip wheel
-        python -m pip install codecov coverage pytest
+        python -m pip install pytest
         # install dependencies
         pip install -e .[all]
         # show installed packages
         pip freeze
     - name: Test with pytest
       run: |
-        coverage run --source=manati -m pytest tests
-    - name: Submit code coverage
-      run: |
-        coverage report -m
-        codecov
+        pytest tests/test_create.py
+

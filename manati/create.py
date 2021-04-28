@@ -110,7 +110,9 @@ def create_docs(path, name, author):
     cmd = 'sphinx-quickstart -p %s -a "%s" -v 0.0.1 --no-sep -l en -r 0.0.1 docs' % (name,
                                                                                      author,
                                                                                      )
-    shell(cmd, str(path))
+    result = shell(cmd, str(path), silent=False)
+    if result.returncode != 0:
+        raise Exception('After sphinx-quickstart:' + str(result))
 
     replace(path / 'docs' / 'conf.py', {'alabaster': 'sphinx_rtd_theme'})
 

@@ -65,7 +65,7 @@ def shell(cmd, root=None, silent=True):
         cmd = 'cd ' + root + '; ' + cmd
     if silent:
         return subprocess.run(cmd, shell=True, stdout=subprocess.DEVNULL)
-    return subprocess.run(cmd, shell=True)
+    return subprocess.run(cmd, shell=True, capture_output=True)
 
 
 def render(path, template=None, subs=None):
