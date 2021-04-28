@@ -162,3 +162,18 @@ def find_project_data():
             info['tests'] = 'test'
 
     return info
+
+
+def find_python():
+    found = shutil.which('python')
+    if not found:
+        found = shutil.which('py')
+    return found
+
+
+def find_sphinx_quickstart():
+    return shutil.which('sphinx-quickstart')
+
+
+def find_sphinx_build():
+    return shutil.which('sphinx-build')
