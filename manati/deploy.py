@@ -24,7 +24,7 @@ def deploy_pypi():
             click.Abort()
             return
 
-    shell('pip install --upgrade wheel twine', silent=False)
+    shell(find_python() + ' -m pip install --upgrade wheel twine', silent=False)
     shell(find_python() + ' setup.py sdist bdist_wheel', silent=False)
 
     do_twine()
@@ -39,4 +39,4 @@ def deploy_github(url, main):
 def do_twine():
     """Login and upload to PyPi."""
     click.echo('Log in to PyPi...')
-    shell('twine upload *', 'dist', silent=False)
+    shell(find_python() + ' -m twine upload *', 'dist', silent=False)

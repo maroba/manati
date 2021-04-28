@@ -8,7 +8,7 @@ from click.testing import CliRunner
 
 from manati.create import create_project_structure, create_docs
 from manati.manati import cli
-from manati.utils import shell
+from manati.utils import shell, find_python
 
 
 class TestRun(unittest.TestCase):
@@ -20,7 +20,7 @@ class TestRun(unittest.TestCase):
                                                                                     'MODULE_NAME': 'test_project'})
 
             os.chdir(Path.cwd() / 'test_project')
-            shell('pip install -e .')
+            shell(find_python() + ' -m pip install -e .')
             result = runner.invoke(cli, ['run', 'tests', '-r', 'unittest', '-t', 'tests'])
             assert result.exit_code == 0
 

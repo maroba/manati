@@ -79,7 +79,7 @@ def create_project_structure(name, path, subs, templates=None):
 
 @task('Pip-installing as editable version...', 'OK')
 def pip_install_project(name):
-    shell('pip install -e .', root=name)
+    shell(find_python() + ' -m pip install -e .', root=name)
 
 
 @task('Create local git repository...', ' OK')
@@ -106,7 +106,7 @@ def create_docs(path, name, author):
     os.makedirs(path / 'docs')
     render(path / 'docs' / 'requirements.txt', 'sphinx\nsphinx_rtd_theme\n')
 
-    shell('pip install -r requirements.txt', root=str(path / 'docs'))
+    shell(find_python() + ' -m pip install -r requirements.txt', root=str(path / 'docs'))
 
     cmd = find_python() + ' -m sphinx.cmd.quickstart -p %s -a "%s" -v 0.0.1 --no-sep -l en -r 0.0.1 docs' % (name,
                                                                                      author,
