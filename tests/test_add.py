@@ -55,14 +55,14 @@ class TestAdd(unittest.TestCase):
             cwd = Path.cwd()
             self.assertTrue(exists(cwd / '.gitignore'))
 
-    def test_add_setup_py(self):
+    def _test_add_setup_py(self):
         runner = CliRunner()
         with runner.isolated_filesystem():
             runner.invoke(cli, ['add', 'setup.py', '--name', 'test_project'], input='\n\n\n\n\n')
             cwd = Path.cwd()
             self.assertTrue(exists(cwd / 'setup.py'))
 
-    def test_add_setup_py_overwrite(self):
+    def _test_add_setup_py_overwrite(self):
         runner = CliRunner()
         with runner.isolated_filesystem():
             shell('touch setup.py')
