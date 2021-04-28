@@ -17,6 +17,7 @@ Python projects.
 
    gettingstarted.md
    create.md
+   add.md
 
 
 

@@ -90,14 +90,10 @@ manati run tests
 
 where you have the choice between different testing frameworks.
 
-
-
-### All options
-
 Creating a new project can also be done in one line by specifying the
 required information as options:
 
-```
+```text
 > manati create --help
 
 Usage: manati create [OPTIONS]
