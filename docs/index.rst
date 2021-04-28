@@ -12,11 +12,12 @@ Welcome to manati's documentation!
 Python projects.
 
 .. toctree::
-   :maxdepth: 3
+   :maxdepth: 2
    :caption: Contents:
 
-   gettingstarted
-   coderef
+   gettingstarted.md
+   create.md
+
 
 
 
