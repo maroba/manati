@@ -202,6 +202,8 @@ def info_command():
 
     def echo_warning(title, key):
         value = info.get(key, 'NOT FOUND')
+        if value is None:
+            value = 'NOT FOUND'
         if value == 'NOT FOUND':
             click.echo(title + value, nl=False)
             click.secho(' [!]', fg='red')
