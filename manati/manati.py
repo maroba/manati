@@ -1,11 +1,13 @@
 import pathlib
 import os
+import shutil
 
 import click
 
 from manati.add import add_package, add_license, add_github_action
 from manati.create import create_project, create_docs
 from manati.utils import confirm_copy, find_project_data
+import manati.utils as utils
 from manati.validators import validate_project_name
 from manati.deploy import deploy_pypi, deploy_github
 from manati.run import run_tests, run_coverage, run_docs, run_flake8
@@ -194,9 +196,14 @@ def info_command():
     """Scan for project data."""
 
     info = find_project_data()
+    info['python'] = utils.find_python()
+    info['sphinx-quickstart'] = utils.find_sphinx_quickstart()
+    info['sphinx-build'] = utils.find_sphinx_build()
 
     def echo_warning(title, key):
         value = info.get(key, 'NOT FOUND')
+        if value is None:
+            value = 'NOT FOUND'
         if value == 'NOT FOUND':
             click.echo(title + value, nl=False)
             click.secho(' [!]', fg='red')
@@ -210,6 +217,9 @@ def info_command():
     echo_warning('Author: ', 'author')
     echo_warning('Email: ', 'email')
     echo_warning('URL: ', 'url')
+    echo_warning('Python: ', 'python')
+    echo_warning('sphinx-quickstart: ', 'sphinx-quickstart')
+    echo_warning('sphinx-build: ', 'sphinx-build')
 
 
 if __name__ == '__main__':

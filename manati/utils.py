@@ -62,10 +62,10 @@ def shell(cmd, root=None, silent=True):
         The directory where to perform the command. Default: current directory.
     """
     if root:
-        cmd = 'cd ' + root + '; ' + cmd
+        cmd = 'cd ' + root + '&& ' + cmd
     if silent:
         return subprocess.run(cmd, shell=True, stdout=subprocess.DEVNULL)
-    return subprocess.run(cmd, shell=True)
+    return subprocess.run(cmd, shell=True, capture_output=True)
 
 
 def render(path, template=None, subs=None):
@@ -162,3 +162,18 @@ def find_project_data():
             info['tests'] = 'test'
 
     return info
+
+
+def find_python():
+    found = shutil.which('python')
+    if not found:
+        found = shutil.which('py')
+    return found
+
+
+def find_sphinx_quickstart():
+    return shutil.which('sphinx-quickstart')
+
+
+def find_sphinx_build():
+    return shutil.which('sphinx-build')

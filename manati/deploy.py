@@ -4,7 +4,7 @@ import shutil
 
 import click
 
-from manati.utils import shell
+from manati.utils import shell, find_python
 
 
 def deploy_pypi():
@@ -25,7 +25,7 @@ def deploy_pypi():
             return
 
     shell('pip install --upgrade wheel twine', silent=False)
-    shell('python setup.py sdist bdist_wheel', silent=False)
+    shell(find_python() + ' setup.py sdist bdist_wheel', silent=False)
 
     do_twine()
 
