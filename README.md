@@ -72,6 +72,18 @@ After creation, the project is already installed in development (editable) mode,
 Sometimes you have an existing project, but initially you did not choose a license,
 or your `.gitignore` is missing. You can add those special files with the `manati add` command.
 
+#### Add a project documentation folder
+
+```
+manati add docs
+```
+
+makes a `./docs` folder and sets up a *Sphinx*-based documentation in `Read-The-Docs`-style:
+
+![generated docs](docs/images/docs-small.png)
+
+Call `manati add --help` for more information.
+
 #### Add a license
 
 ```
@@ -94,18 +106,6 @@ by git in Python projects.
 ```
 manati add setup.py 
 ```
-
-#### Add a project documentation folder
-
-```
-manati add docs
-```
-
-makes a `./docs` folder and sets up a *Sphinx*-based documentation in `Read-The-Docs`-style:
-
-![generated docs](docs/images/docs-small.png)
-
-Call `manati add --help` for more information.
 
 #### Add github actions
 
