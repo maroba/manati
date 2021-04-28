@@ -49,8 +49,8 @@ def run_docs():
     if not exists(cwd / 'docs'):
         raise click.BadParameter('Cannot find docs folder.')
 
-    shell('make clean; make html', root=str(cwd / 'docs'), silent=False)
-    click.launch('docs/_build/html/index.html')
+    shell('make clean && make html', root=str(cwd / 'docs'), silent=False)
+    click.launch(str(cwd / 'docs' / '_build' / 'html' /'index.html'))
 
 
 def run_flake8(dirs):

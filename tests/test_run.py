@@ -49,5 +49,4 @@ class TestRun(unittest.TestCase):
             shutil.rmtree(Path.cwd() / 'docs' / '_build')
             result = runner.invoke(cli, ['run', 'docs'])
             assert result.exit_code == 0
-            mock_launch.assert_called_with('docs/_build/html/index.html')
-            assert os.path.exists(Path.cwd() / 'docs' / '_build')
+            assert os.path.exists(Path.cwd() / 'docs' / '_build' / 'html' / 'index.html')
