@@ -2,7 +2,7 @@ name: Checks
 
 on:
   push:
-    #branches: [ main ]
+    branches: [ main ]
 
 jobs:
   build:
@@ -11,7 +11,7 @@ jobs:
     strategy:
       matrix:
         python-version: ['3.7']
-        os: [windows-latest]
+        os: [ubuntu-latest, macos-latest, windows-latest]
 
     steps:
     - uses: actions/checkout@v2
