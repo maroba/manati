@@ -183,7 +183,8 @@ def add_gitignore_command():
 
 
 @add.command('setup.py')
-def add_setup_py_command():
+@click.option('-a', '--author', 'author', default=lambda: os.environ.get('USER'))
+def add_setup_py_command(author):
     """Add a setup.py file to the current directory"""
     cwd = pathlib.Path.cwd()
     target = cwd / 'setup.py'

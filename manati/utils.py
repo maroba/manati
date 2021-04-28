@@ -29,11 +29,12 @@ def task(msg_before, msg_after=None):
     return outer_wrapper
 
 
-def substitute(path, pattern, replacement):
+def substitute(path, replacement_dict):
     with open(path, 'r') as f:
         content = f.read()
 
-    content = re.sub(pattern, replacement, content)
+    for pattern, subs in replacement_dict.items():
+        content = re.sub(pattern, subs, content)
 
     with open(path, 'w') as f:
         f.write(content)

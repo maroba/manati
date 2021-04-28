@@ -62,7 +62,7 @@ def add_license(path, license):
     if not os.path.exists(setup_py):
         click.echo('Warning: cannot find setup.py to set license type.')
         return
-    substitute(setup_py, "license='None'", "license='%s'" % license)
+    substitute(setup_py, {"license='None'": "license='%s'" % license})
 
 
 def add_github_action(package, tests):
