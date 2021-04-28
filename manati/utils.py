@@ -62,7 +62,7 @@ def shell(cmd, root=None, silent=True):
         The directory where to perform the command. Default: current directory.
     """
     if root:
-        cmd = 'cd ' + root + '; ' + cmd
+        cmd = 'cd ' + root + '&& ' + cmd
     if silent:
         return subprocess.run(cmd, shell=True, stdout=subprocess.DEVNULL)
     return subprocess.run(cmd, shell=True, capture_output=True)
