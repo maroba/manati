@@ -21,3 +21,6 @@ class TestCreate(unittest.TestCase):
             assert exists(path / 'tee')
             assert exists(path /'tee' / '__init__.py')
             assert exists(path / 'setup.py')
+            assert exists(path / 'docs' / 'conf.py')
+            assert exists(path / 'docs' / '_build' / 'html' / 'index.html')
+
