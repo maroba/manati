@@ -52,7 +52,7 @@ from the project root directory. After the building process, a browser
 opens up showing the resulting HTML files, which should look very similar
 to the documentation you are currently reading.
 
-## Adding `.gitignore` file
+## Adding *.gitignore* file
 
 It is important not to clutter your *git* repository with files that are
 not needed for the code itself. If your project does not yet have a suitable
@@ -63,7 +63,7 @@ to your project by typing
 manati add gitignore
 ```
 
-## Adding `setup.py` file
+## Adding *setup.py* file
 
 When you want to install your project to your Python environment so that
 it can be used from anywhere in your file system, you need to have a
