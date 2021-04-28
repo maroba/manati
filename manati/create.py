@@ -107,7 +107,7 @@ def create_docs(path, name, author):
 
     shell('pip install -r requirements.txt', root=str(path) + '/docs')
 
-    cmd = 'python -m sphinx.cmd.quickstart -p %s -a "%s" -v 0.0.1 --no-sep -l en -r 0.0.1 docs' % (name,
+    cmd = 'py -m sphinx.cmd.quickstart -p %s -a "%s" -v 0.0.1 --no-sep -l en -r 0.0.1 docs' % (name,
                                                                                      author,
                                                                                      )
     shell(cmd, str(path), silent=False)
