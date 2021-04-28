@@ -8,7 +8,7 @@ email = 'matthias.r.baer@googlemail.com'
 description = 'A CLI for managing Python projects.'
 name = 'manati'
 year = '2021'
-version = '0.3.0'
+version = '0.3.1'
 
 setup(
     name=name,
