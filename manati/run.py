@@ -49,8 +49,9 @@ def run_docs():
     if not exists(cwd / 'docs'):
         raise click.BadParameter('Cannot find docs folder.')
 
-    shell('make clean && make html', root=str(cwd / 'docs'), silent=False)
-    click.launch(str(cwd / 'docs' / '_build' / 'html' /'index.html'))
+    shell('make clean', root=str(cwd / 'docs'), silent=False)
+    shell('python -m sphinx.cmd.build -M html . _build', root=str(cwd / 'docs'), silent=False)
+    click.launch(str(cwd / 'docs' / '_build' / 'html' / 'index.html'))
 
 
 def run_flake8(dirs):

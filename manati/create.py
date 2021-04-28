@@ -1,6 +1,7 @@
 import os
 import pathlib
 import datetime
+from pathlib import Path
 
 import click
 
@@ -117,4 +118,5 @@ def create_docs(path, name, author):
 
 @task('Build documentation...', ' OK')
 def build_documentation(name):
-    shell('make html', root=name + '/docs')
+    shell('python -m sphinx.cmd.build -M html . _build', root=str(Path.cwd() / name / 'docs'))
+
