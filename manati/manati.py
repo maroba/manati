@@ -194,14 +194,22 @@ def info_command():
     """Scan for project data."""
 
     info = find_project_data()
-    click.echo(info)
-    click.echo('Project name: ' + info.get('name', 'NOT FOUND'))
-    click.echo('Package: ' + str(info.get('package', 'NOT FOUND')))
-    click.echo('Test directory: ' + str(info.get('tests', 'NOT FOUND')))
-    click.echo('Version: ' + info.get('version', 'NOT FOUND'))
-    click.echo('Author: ' + info.get('author', 'NOT FOUND'))
-    click.echo('Email: ' + info.get('email', 'NOT FOUND'))
-    click.echo('URL: ' + info.get('url', 'NOT FOUND'))
+
+    def echo_warning(title, key):
+        value = info.get(key, 'NOT FOUND')
+        if value == 'NOT FOUND':
+            click.echo(title + value, nl=False)
+            click.secho(' [!]', fg='red')
+        else:
+            click.echo(title + value)
+
+    echo_warning('Project name: ', 'name')
+    echo_warning('Package: ', 'package')
+    echo_warning('Test directory: ', 'tests')
+    echo_warning('Version: ', 'version')
+    echo_warning('Author: ', 'author')
+    echo_warning('Email: ', 'email')
+    echo_warning('URL: ', 'url')
 
 
 if __name__ == '__main__':

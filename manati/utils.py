@@ -127,7 +127,7 @@ def find_project_data():
 
     def find_parameter(par_name, text):
 
-        pattern = re.compile(par_name + r'\s*=\s*([^,)]+)')
+        pattern = re.compile(par_name + r'\s*=\s*([^,)}\n]+)')
         matches = pattern.findall(text)
         parameter = None
         for m in matches:
