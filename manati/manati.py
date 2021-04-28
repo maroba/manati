@@ -86,7 +86,8 @@ def run(*args, **kwargs):
 
 
 @run.command('tests')
-@click.option('-t', 'directory', required=True, prompt='Test folder', help='Directory with tests.')
+@click.option('-t', 'directory', required=True, prompt='Test folder', help='Directory with tests.',
+              default=lambda: find_project_data().get('tests', None))
 @click.option('-r', '--runner', 'runner', required=True, default='unittest',
               type=click.Choice(['unittest', 'pytest'], case_sensitive=False),
               help='Test runner', prompt='Test runner')
@@ -123,6 +124,16 @@ def run_flake8_command(dirs):
 
 But in contrast to PEP8, by default 120 characters per line are ok.
 """
+
+    # If user forgets to give directories to scan, make a guess.
+    if len(dirs) == 0:
+        guess = find_project_data().get('package')
+        if guess:
+            if click.confirm('No directory to scan was given. Did you mean "%s"?' % guess, default=True):
+                run_flake8([guess])
+                return
+        raise click.BadParameter('No directories to scan.')
+
     run_flake8(dirs)
 
 
