@@ -26,6 +26,11 @@ Even *manati* is managed using *manati*... so meta.
 pip install --upgrade manati
 ```
 
+## Documentation
+
+The full documentation can be found [here](https://manati.readthedocs.io/en/latest/).
+
+
 ## Usage
 
 ### Creating a new project
@@ -168,10 +173,6 @@ Depending on your environment settings, you may have to use *manati* by prependi
 ```
 python -m manati create
 ```
-
-## Documentation
-
-The full documentation can be found [here](https://manati.readthedocs.io/en/latest/).
 
 ## Requirements
 
