@@ -51,7 +51,7 @@ def replace(path, subs):
             f.write(content)
 
 
-def shell(cmd, root=None, silent=True):
+def shell(cmd, root=None, silent=True, **kwargs):
     """ Silently perform a shell command.
 
     Parameters
@@ -65,9 +65,8 @@ def shell(cmd, root=None, silent=True):
     if root:
         cmd = 'cd ' + root + '&& ' + cmd
     if silent:
-        return subprocess.run(cmd, shell=True, stdout=subprocess.DEVNULL)
-    return subprocess.run(cmd, shell=True)
-
+        return subprocess.run(cmd, shell=True, stdout=subprocess.DEVNULL, **kwargs)
+    return subprocess.run(cmd, shell=True, **kwargs)
 
 def render(path, template=None, subs=None):
     """ Write a file based on a file or string template.
@@ -161,6 +160,28 @@ def find_project_data():
         test_dir = cwd / 'test'
         if exists(test_dir) and os.path.isdir(test_dir):
             info['tests'] = 'test'
+
+    # Try to find author if not yet found and email
+    if 'author' not in info:
+        result = shell('git config user.name', capture_output=True, silent=False)
+
+        if result.returncode == 0:
+            info['author'] = result.stdout.decode('utf-8').strip()
+
+    if 'author' not in info:
+        author = os.environ.get('USER')
+        if author:
+            info['author'] = author
+
+    if 'author' not in info:
+        author = os.environ.get('USERNAME')
+        if author:
+            info['author'] = author
+
+    if 'email' not in info:
+        result = shell('git config user.email', capture_output=True, silent=False)
+        if result.returncode == 0:
+            info['email'] = result.stdout.decode('utf-8').strip()
 
     return info
 

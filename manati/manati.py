@@ -1,6 +1,7 @@
 import pathlib
 import os
 import shutil
+import datetime
 
 import click
 
@@ -183,14 +184,33 @@ def add_gitignore_command():
 
 
 @add.command('setup.py')
-@click.option('-a', '--author', 'author', default=lambda: os.environ.get('USER'))
-def add_setup_py_command(author):
+@click.option('-a', '--author', 'author', default=lambda: find_project_data().get('author'), prompt='Author')
+@click.option('-e', '--email', 'email', prompt='Author email', default=lambda: find_project_data().get('email'))
+@click.option('-n', '--name', 'name', prompt='Package name', required=True,
+              default=lambda: find_project_data().get('package'))
+@click.option('-v', '--version', 'version', prompt='Version', default='0.0.1', required=True)
+@click.option('-d', '--description', 'description', prompt='Short description', default='', required=True)
+@click.option('-u', '--url', 'url', prompt='URL', default='', required=True)
+def add_setup_py_command(author, email, name, version, description, url):
     """Add a setup.py file to the current directory"""
     cwd = pathlib.Path.cwd()
     target = cwd / 'setup.py'
     source = pathlib.Path(__file__).parent / 'templates' / 'setup.py'
 
     confirm_copy(source, target)
+
+    if not email:
+        email = 'EMAIL'
+
+    utils.substitute(target, {
+        'AUTHOR': author,
+        'EMAIL': email,
+        'PROJECT_NAME': name,
+        'VERSION': version,
+        'DESCRIPTION': description,
+        'URL': url,
+        'YEAR': str(datetime.date.today().year)
+    })
 
 
 @add.command('github-action')
