@@ -109,8 +109,7 @@ def create_docs(path, name, author):
     shell(find_python() + ' -m pip install -r requirements.txt', root=str(path / 'docs'))
 
     cmd = find_python() + ' -m sphinx.cmd.quickstart -p %s -a "%s" -v 0.0.1 --no-sep -l en -r 0.0.1 docs' % (name,
-                                                                                     author,
-                                                                                     )
+                                                                                     author)
     shell(cmd, str(path), silent=False)
 
     replace(path / 'docs' / 'conf.py', {'alabaster': 'sphinx_rtd_theme'})
@@ -119,4 +118,3 @@ def create_docs(path, name, author):
 @task('Build documentation...', ' OK')
 def build_documentation(name):
     shell(find_python() + ' -m sphinx.cmd.build -M html . _build', root=str(Path.cwd() / name / 'docs'))
-

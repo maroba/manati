@@ -1,6 +1,5 @@
 import pathlib
 import os
-import shutil
 import datetime
 
 import click

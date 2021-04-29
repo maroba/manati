@@ -8,6 +8,7 @@ from os.path import basename, exists
 
 import click
 
+
 class NotFoundException(Exception):
     pass
 
@@ -67,6 +68,7 @@ def shell(cmd, root=None, silent=True, **kwargs):
     if silent:
         return subprocess.run(cmd, shell=True, stdout=subprocess.DEVNULL, **kwargs)
     return subprocess.run(cmd, shell=True, **kwargs)
+
 
 def render(path, template=None, subs=None):
     """ Write a file based on a file or string template.

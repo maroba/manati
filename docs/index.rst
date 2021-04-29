@@ -20,6 +20,7 @@ Python projects.
    add.md
    run.md
    deploy.md
+   contributing.md
 
 
 

@@ -12,7 +12,7 @@ def run_tests(test_folder, runner):
         raise click.BadParameter('No such folder %s' % test_folder)
 
     if runner == 'unittest':
-        shell(find_python() +' -m unittest discover ' + str(test_folder), silent=False)
+        shell(find_python() + ' -m unittest discover ' + str(test_folder), silent=False)
     elif runner == 'pytest':
         shell(find_python() + ' -m pip install --upgrade pytest')
         shell(find_python() + ' -m pytest ' + str(test_folder), silent=False)
