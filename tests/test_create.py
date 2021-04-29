@@ -4,6 +4,7 @@ from os.path import exists
 import pathlib
 
 from click.testing import CliRunner
+import click
 
 from manati.manati import cli
 
@@ -29,6 +30,6 @@ class TestCreate(unittest.TestCase):
         runner = CliRunner()
         with runner.isolated_filesystem():
             os.mkdir('tee')
-            with self.assertRaises(Exception):
+            with self.assertRaises(click.BadParameter):
                 result = runner.invoke(cli, ['create', '-n' , 'tee'], input='\n\n\n')
 
