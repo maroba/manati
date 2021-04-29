@@ -1,9 +1,7 @@
 import unittest
 import unittest.mock
-from pathlib import Path
-import shutil
-import os
 import subprocess
+import platform
 
 from click.testing import CliRunner
 
@@ -16,6 +14,8 @@ class TestUtils(unittest.TestCase):
     @unittest.mock.patch('manati.utils.os.environ.get')
     def test_find_project_data_author_from_env(self, mock_env, mock_shell):
         mock_shell.return_value = subprocess.run('blabla1234', shell=True)
+        if platform.system() == 'Windows':
+            self.assertTrue(True)
 
         runner = CliRunner()
         with runner.isolated_filesystem():
