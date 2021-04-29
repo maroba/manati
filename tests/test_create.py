@@ -1,4 +1,5 @@
 import unittest
+import os
 from os.path import exists
 import pathlib
 
@@ -23,4 +24,11 @@ class TestCreate(unittest.TestCase):
             assert exists(path / 'setup.py')
             assert exists(path / 'docs' / 'conf.py')
             assert exists(path / 'docs' / '_build' / 'html' / 'index.html')
+
+    def test_create_project_do_not_overwrite(self):
+        runner = CliRunner()
+        with runner.isolated_filesystem():
+            os.mkdir('tee')
+            with self.assertRaises(Exception):
+                result = runner.invoke(cli, ['create', '-n' , 'tee'], input='\n\n\n')
 

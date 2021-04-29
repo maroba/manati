@@ -47,10 +47,8 @@ def create_project_command(name, no_git, no_install, author, description, licens
     By default, the project is also pip-installed for development
     in editable mode, and a local git repository is also created.
     """
-    try:
-        create_project(name, no_git, no_install, author, description, license)
-    except Exception as e:
-        click.echo(e)
+
+    create_project(name, no_git, no_install, author, description, license)
 
 
 @cli.group('deploy')

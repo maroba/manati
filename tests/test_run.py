@@ -50,3 +50,21 @@ class TestRun(unittest.TestCase):
             result = runner.invoke(cli, ['run', 'docs'])
             assert result.exit_code == 0
             assert os.path.exists(Path.cwd() / 'docs' / '_build' / 'html' / 'index.html')
+
+    @unittest.mock.patch('manati.manati.find_project_data')
+    def test_run_flake8_guess(self, mock_fpd):
+        runner = CliRunner()
+        mock_fpd.return_value = {'package': 'test_project'}
+        with runner.isolated_filesystem():
+            create_project_structure('test_project', Path('test_project'), {'PROJECT_NAME': 'test_project',
+                                                                            'MODULE_NAME': 'test_project'})
+            result = runner.invoke(cli, ['run', 'flake8'], input='\n')
+            assert result.exit_code == 0
+
+    def test_run_flake8(self):
+        runner = CliRunner()
+        with runner.isolated_filesystem():
+            create_project_structure('test_project', Path('test_project'), {'PROJECT_NAME': 'test_project',
+                                                                            'MODULE_NAME': 'test_project'})
+            result = runner.invoke(cli, ['run', 'flake8', 'test_project'])
+            assert result.exit_code == 0

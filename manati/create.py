@@ -32,7 +32,7 @@ def create_project(name, no_git, no_install, author, description, license):
 
     path = pathlib.Path.cwd() / name
     if os.path.exists(path):
-        raise Exception('ERROR: Path already exists.')
+        raise click.BadParameter('ERROR: Path already exists.')
 
     templates = pathlib.Path(__file__).parent / 'templates'
     subs = {
