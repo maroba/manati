@@ -9,7 +9,7 @@ A command line interface (CLI) for managing Python projects.
 ![Build status](https://img.shields.io/github/workflow/status/maroba/manati/Checks)
 ![Coverage](https://img.shields.io/codecov/c/github/maroba/manati/main.svg)
 [![Doc Status](https://readthedocs.org/projects/manati/badge/?version=latest)](https://manati.readthedocs.io/en/latest/index.html)
-[![Downloads](https://static.pepy.tech/personalized-badge/manati?period=week&units=international_system&left_color=grey&right_color=brightgreen&left_text=downloads%20/%20week)](https://pepy.tech/project/manati)
+[![Downloads](https://pepy.tech/badge/manati/week)](https://pepy.tech/project/manati)
 
 **Create** new Python projects with ready-to-go recommended project structure. 
 
