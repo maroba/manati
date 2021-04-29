@@ -42,7 +42,8 @@ So what can go wrong? In the `setup.py` file (if you don't have one yet,
 variables, like an email address, a URL for the project (like the github repository) and
 of course, the name variable should be the same as the package that you want to submit.
 The version variable is also crucial, because you can only upload code of a given
-version once. So you may have to adjust it. 
+version once. So you may have to adjust it. In any case, make sure that the name
+of your package is not already taken by someone else (check on [pypi.org](https://pypi.org)). 
 
 If you have set up the project structure
 with *manati*, you are already done with all settings and ready to deploy.
