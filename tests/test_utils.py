@@ -14,6 +14,9 @@ class TestUtils(unittest.TestCase):
     @unittest.mock.patch('manati.utils.os.environ.get')
     def test_find_project_data_author_from_env(self, mock_env, mock_shell):
         mock_shell.return_value = subprocess.run('blabla1234', shell=True)
+
+        # This test runs into an exception on Windows.
+        # Manual testing works.  Fix it later.
         if platform.system() == 'Windows':
             self.assertTrue(True)
 
