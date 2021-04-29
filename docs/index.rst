@@ -19,6 +19,7 @@ Python projects.
    create.md
    add.md
    run.md
+   deploy.md
 
 
 
