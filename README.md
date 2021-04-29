@@ -3,7 +3,7 @@
 
 A command line interface (CLI) for managing Python projects.
 
-![https://de.vecteezy.com/gratis-vektor/natur](docs/images/manati.png) 
+![https://de.vecteezy.com/gratis-vektor/natur](https://github.com/maroba/manati/blob/f2459d99b04762c1f22020a6d8e0ae50a123a7b1/docs/images/manati.png) 
 
 [![PyPI version](https://badge.fury.io/py/manati.svg)](https://badge.fury.io/py/manati)
 ![Build status](https://img.shields.io/github/workflow/status/maroba/manati/Checks)
