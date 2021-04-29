@@ -30,6 +30,6 @@ class TestCreate(unittest.TestCase):
         runner = CliRunner()
         with runner.isolated_filesystem():
             os.mkdir('tee')
-            with self.assertRaises(click.BadParameter):
-                result = runner.invoke(cli, ['create', '-n' , 'tee'], input='\n\n\n')
+            runner.invoke(cli, ['create', '-n' , 'tee'], input='\n\n\n')
+            assert not exists(pathlib.Path.cwd() / 'tee' / 'docs')
 
