@@ -174,6 +174,12 @@ Depending on your environment settings, you may have to use *manati* by prependi
 python -m manati create
 ```
 
+## Contributing
+
+*manati* is open source and every one is welcome to contribute! Please
+read the [contribution guide](https://manati.readthedocs.io/en/latest/contributing.html) 
+if you are interested.
+
 ## Requirements
 
 *manati* requires Python 3.
